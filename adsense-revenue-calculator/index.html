@@ -125,7 +125,22 @@
   <section class="page-hero">
     <div class="page-hero-inner">
       <div class="hero-badge anim-1">$ Website Revenue Tool</div>
-      <h1 class="hero-h1 anim-2">AdSense Revenue <span class="grad">Calculator 2026</span></h1>
+      <h1 class="hero-h1 anim-2">
+        <svg width="54" height="54" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="hero-icon">
+          <defs>
+            <linearGradient id="adsGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#4285F4" />
+              <stop offset="1" stop-color="#34A853" />
+            </linearGradient>
+          </defs>
+          <rect width="24" height="24" rx="6" fill="url(#adsGrad)" />
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20ZM11 7H13V15.5L16.5 12L17.5 13L12 18.5L6.5 13L7.5 12L11 15.5V7Z"
+            fill="white" />
+        </svg>
+        AdSense Revenue <span class="grad">Calculator 2026</span>
+      </h1>
       <div class="page-updated anim-3">Last Updated: February 2026</div>
       <p class="hero-sub anim-4">Estimate your website's earning potential with Google AdSense based on traffic volume,
         CTR, and CPC.</p>
@@ -138,37 +153,62 @@
         <div class="card-grid">
           <div class="card-left">
             <div class="form-group">
-              <label>Daily Page Impressions</label>
-              <input type="number" id="adsViews" value="2000" placeholder="e.g. 2000" oninput="calcAds()">
+              <label>Monthly Pageviews</label>
+              <input type="number" id="asViews" value="50000">
+            </div>
+            <div class="range-group">
+              <div class="range-top">
+                <label>Click-Through Rate (CTR)</label>
+                <span class="range-val" id="asCTRLbl">2.0%</span>
+              </div>
+              <input type="range" id="asCTR" min="0.1" max="15" step="0.1" value="2.0">
             </div>
             <div class="form-group">
-              <label>CTR (Click-Through Rate %)</label>
-              <input type="number" id="adsCTR" value="1.5" step="0.1" placeholder="e.g. 1.5" oninput="calcAds()">
+              <label>Cost Per Click — CPC ($)</label>
+              <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="asCPC" value="0.35"
+                  step="0.01"></div>
             </div>
             <div class="form-group">
-              <label>CPC (Cost Per Click $)</label>
-              <input type="number" id="adsCPC" value="0.25" step="0.01" placeholder="e.g. 0.25" oninput="calcAds()">
+              <label>Traffic Source</label>
+              <select id="asTraffic">
+                <option value="1.0">🔍 Organic Search (SEO)</option>
+                <option value="0.7">🔗 Direct Traffic</option>
+                <option value="0.6">🌐 Referral</option>
+                <option value="0.5">📱 Social Media</option>
+                <option value="0.4">📧 Email</option>
+              </select>
             </div>
-            <button class="btn-primary" onclick="calcAds()">⚡ Calculate Revenue</button>
-            <div class="notice mt-20">
-              <span class="notice-icon">ℹ️</span>
-              <span><strong>Calculated Page RPM:</strong> <span id="calcRPM">$0.00</span></span>
-            </div>
+            <button class="btn-primary" onclick="calcAS()">⚡ Calculate AdSense Revenue</button>
           </div>
           <div class="card-right">
-            <div class="output-hero bg-gradient-adsense">
-              <div class="output-label">Est. Monthly Revenue</div>
-              <div class="output-value" id="adsMonthly">$0.00</div>
-              <div class="output-sub">Yearly: <span id="adsYearly">$0.00</span></div>
+            <div class="output-hero" style="background:linear-gradient(135deg,#4285F4,#34A853)">
+              <div class="output-label">Monthly AdSense Revenue</div>
+              <div class="output-value" id="asMonthly">$0.00</div>
+              <div class="output-sub">estimated earnings</div>
             </div>
-            <br>
-            <div class="formula-box mt-20">
-              Formula: (Impressions × CTR%) × CPC
+            <div class="breakdown">
+              <div class="bd-item">
+                <div class="bd-val" id="asClicks">0</div>
+                <div class="bd-label">Monthly Clicks</div>
+              </div>
+              <div class="bd-item">
+                <div class="bd-val" id="asRPM">$0.00</div>
+                <div class="bd-label">Page RPM</div>
+              </div>
+              <div class="bd-item">
+                <div class="bd-val" id="asYearly">$0.00</div>
+                <div class="bd-label">Yearly</div>
+              </div>
+              <div class="bd-item">
+                <div class="bd-val" id="asDaily">$0.00</div>
+                <div class="bd-label">Daily Avg</div>
+              </div>
             </div>
-            <div class="action-row mt-16">
-              <button class="act-btn" onclick="copyTxt('adsMonthly')">⎘ Copy Result</button>
-              <button class="act-btn" onclick="dlTxt('AdSense Revenue','Monthly: '+$('adsMonthly').textContent)">↓
-                Export</button>
+            <div class="formula">Revenue = Pageviews × <span id="asCTRfml">CTR%</span> × <span id="asCPCfml">CPC</span>
+            </div>
+            <div class="action-row">
+              <button class="act-btn" onclick="copyTxt('asMonthly')">⎘ Copy</button>
+              <button class="act-btn" onclick="dlTxt('AdSense Revenue')">↓ Export</button>
             </div>
           </div>
         </div>
@@ -467,32 +507,64 @@
 
   <script src="/shared.js" defer></script>
   <script defer>
-    function calcAds() {
-      const views = v('adsViews');
-      const ctr = v('adsCTR');
-      const cpc = v('adsCPC');
+    function calcAS() {
+      if (typeof v !== 'function' || typeof $ !== 'function') return;
 
-      // Input guard: prevent NaN and reset display
-      if (!views || views <= 0 || !ctr || ctr <= 0 || !cpc || cpc <= 0) {
-        set('adsMonthly', '$0.00');
-        set('adsYearly', '$0.00');
-        set('calcRPM', '$0.00');
-        return;
-      }
+      const views = v('asViews');
 
-      // Daily Rev = Views * (CTR/100) * CPC
-      const dailyRev = views * (ctr / 100) * cpc;
-      const monRev = dailyRev * 30;
-      const yearRev = dailyRev * 365;
+      // CTR Slider
+      const ctrElem = $('asCTR');
+      const ctrVal = ctrElem ? parseFloat(ctrElem.value) : 2.0;
+      const ctr = ctrVal / 100;
 
-      // Page RPM = (Daily Rev / Views) * 1000
-      const rpm = (dailyRev / views) * 1000;
+      // Update Label
+      const ctrLbl = $('asCTRLbl');
+      if (ctrLbl) ctrLbl.textContent = ctrVal.toFixed(1) + '%';
 
-      set('adsMonthly', fmt(monRev)); // Updated ID to match label
-      set('adsYearly', fmt(yearRev));
-      set('calcRPM', fmt(rpm));
+      const cpc = v('asCPC');
+
+      // Traffic Source Logic
+      // Different traffic sources have different conversion/value rates.
+      // We simulate this by adjusting the effective clicks or value.
+      // Hub logic: const tm = parseFloat($('asTraffic').value); const clicks = views * ctr * tm;
+      const trafficElem = $('asTraffic');
+      const tm = trafficElem ? parseFloat(trafficElem.value) : 1.0;
+
+      // Calculations
+      const clicks = views * ctr * tm; // Adjusted clicks based on source quality
+      const monthly = clicks * cpc;
+      const rpm = (views > 0) ? (monthly / views) * 1000 : 0;
+
+      // Update UI
+      set('asMonthly', fmt(monthly));
+      set('asClicks', fmtN(clicks));
+      set('asRPM', fmt(rpm));
+      set('asYearly', fmt(monthly * 12));
+      set('asDaily', fmt(monthly / 30));
+
+      const ctrFml = $('asCTRfml');
+      if (ctrFml) ctrFml.textContent = (ctr * 100).toFixed(1) + '%';
+
+      const cpcFml = $('asCPCfml');
+      if (cpcFml) cpcFml.textContent = '$' + cpc.toFixed(2);
     }
-    document.addEventListener('DOMContentLoaded', calcAds);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Attach Listeners
+      const inputs = ['asViews', 'asCTR', 'asCPC', 'asTraffic'];
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', calcAS);
+          el.addEventListener('change', calcAS);
+        }
+      });
+
+      const btn = document.querySelector('.card-left .btn-primary');
+      if (btn) btn.addEventListener('click', calcAS);
+
+      setTimeout(calcAS, 100);
+    });
   </script>
 </body>
 

@@ -6,7 +6,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S6VK537JGM"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-S6VK537JGM');
@@ -103,7 +103,7 @@
 <body>
   <div id="progress"></div>
   <nav aria-label="Main Navigation">
-    <a class="nav-logo" href="/index.html">
+    <a class="nav-logo" href="/">
       <img src="/logo.svg" alt="IncomeFromViews Logo" class="nav-logo-img" width="36" height="36">
       <span class="nav-logo-text">Income<em>FromViews</em></span>
     </a>
@@ -124,7 +124,21 @@
   <section class="page-hero">
     <div class="page-hero-inner">
       <div class="hero-badge anim-1">🎵 TikTok Money Tool</div>
-      <h1 class="hero-h1 anim-2">TikTok Earnings <span class="grad">Calculator 2026</span></h1>
+      <h1 class="hero-h1 anim-2">
+        <svg width="54" height="54" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="hero-icon">
+          <defs>
+            <linearGradient id="ttGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#00B4D8" />
+              <stop offset="1" stop-color="#EE1D52" />
+            </linearGradient>
+          </defs>
+          <rect width="24" height="24" rx="6" fill="url(#ttGrad)" />
+          <path d="M12.5 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"
+            fill="white" />
+        </svg>
+        TikTok Earnings <span class="grad">Calculator 2026</span>
+      </h1>
       <div class="page-updated anim-3">Last Updated: February 2026</div>
       <p class="hero-sub anim-4">Calculate estimated monthly income from the Creativity Program Beta and brand
         sponsorships.</p>
@@ -137,47 +151,58 @@
         <div class="card-grid">
           <div class="card-left">
             <div class="form-group">
-              <label>Followers Count</label>
-              <input type="number" id="ttFollowers" value="10000" placeholder="e.g. 10000" oninput="calcTT()">
+              <label>Monthly Views</label>
+              <input type="number" id="ttViews" value="1000000" oninput="calcTT()">
             </div>
             <div class="form-group">
-              <label>Daily Video Views</label>
-              <input type="number" id="ttViews" value="50000" placeholder="e.g. 50000" oninput="calcTT()">
-            </div>
-            <div class="form-group">
-              <label>Monetization Program</label>
+              <label>Program / RPM Rate <span class="tip-wrap"><span class="tip-icon">i</span><span
+                    class="tip-text">Creativity Program pays 10–20× more than the old Creator
+                    Fund.</span></span></label>
               <select id="ttProgram" onchange="calcTT()">
-                <option value="cpb">Creativity Program (Videos > 1 min)</option>
-                <option value="fund">Creator Fund (Old / Short Videos)</option>
+                <option value="0.03">Creator Fund — avg $0.03 per 1K</option>
+                <option value="0.50" selected>Creativity Program — avg $0.50 per 1K</option>
+                <option value="1.00">Creativity Program — high $1.00 per 1K</option>
               </select>
             </div>
-            <button class="btn-primary" onclick="calcTT()">⚡ Calculate Income</button>
-            <div class="notice mt-20">
-              <span class="notice-icon">ℹ️</span>
-              <span><strong>Note:</strong> The "Creativity Program" pays significantly higher rates but requires videos
-                longer than 1 minute.</span>
+            <div class="form-group">
+              <label>Sponsored Posts / Month</label>
+              <input type="number" id="ttSponPosts" value="2" oninput="calcTT()">
             </div>
+            <div class="form-group">
+              <label>Value Per Sponsored Post ($)</label>
+              <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="ttSponVal" value="500"
+                  oninput="calcTT()"></div>
+            </div>
+            <button class="btn-primary" onclick="calcTT()">⚡ Calculate TikTok Earnings</button>
           </div>
           <div class="card-right">
-            <div class="output-hero bg-gradient-tiktok">
-              <div class="output-label">Est. Monthly Earnings</div>
-              <div class="output-value" id="ttMonthly">$0.00</div>
-              <div class="output-sub">Ad Revenue + Sponsorships</div>
+            <div class="output-hero" style="background:linear-gradient(135deg,#00B4D8,#EE1D52)">
+              <div class="output-label">Total Monthly Earnings</div>
+              <div class="output-value" id="ttTotal">$0.00</div>
+              <div class="output-sub">estimated combined</div>
             </div>
             <div class="breakdown">
               <div class="bd-item">
-                <div class="bd-val" id="ttAdRev">$0.00</div>
-                <div class="bd-label">Program Income</div>
+                <div class="bd-val" id="ttFund">$0.00</div>
+                <div class="bd-label">Creator Fund</div>
               </div>
               <div class="bd-item">
                 <div class="bd-val" id="ttSpon">$0.00</div>
-                <div class="bd-label">Sponsorship Est.</div>
+                <div class="bd-label">Sponsorships</div>
+              </div>
+              <div class="bd-item">
+                <div class="bd-val" id="ttYearly">$0.00</div>
+                <div class="bd-label">Yearly Est.</div>
+              </div>
+              <div class="bd-item">
+                <div class="bd-val" id="ttPerK">$0.00</div>
+                <div class="bd-label">Per 1K Views</div>
               </div>
             </div>
-            <div class="action-row mt-16">
-              <button class="act-btn" onclick="copyTxt('ttMonthly')">⎘ Copy Result</button>
-              <button class="act-btn" onclick="dlTxt('TikTok Earnings','Monthly: '+$('ttMonthly').textContent)">↓
-                Export</button>
+            <div class="action-row">
+              <button class="act-btn" onclick="copyTxt('ttTotal')">⎘ Copy</button>
+              <button class="act-btn" onclick="dlTxt('TikTok Earnings')">↓ Export</button>
+              <button class="act-btn" onclick="shareIt()">⤴ Share</button>
             </div>
           </div>
         </div>
@@ -224,39 +249,39 @@
       </p>
 
       <div class="table-responsive">
-<table class="data-table">
-        <caption>TikTok Creativity Program vs Old Creator Fund Comparison</caption>
-        <thead>
-          <tr>
-            <th>Feature</th>
-            <th>Old Creator Fund</th>
-            <th>Creativity Program (2026)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Pay Rate (RPM)</strong></td>
-            <td>$0.02 - $0.04</td>
-            <td>$0.50 - $1.20+</td>
-          </tr>
-          <tr>
-            <td><strong>Video Length</strong></td>
-            <td>Any length</td>
-            <td>Must be >60 seconds</td>
-          </tr>
-          <tr>
-            <td><strong>View Quality</strong></td>
-            <td>All views count</td>
-            <td>Only "Qualified Views" count</td>
-          </tr>
-          <tr>
-            <td><strong>Earnings Potential</strong></td>
-            <td>Very Low (Pocket change)</td>
-            <td>High (Full-time potential)</td>
-          </tr>
-        </tbody>
-      </table>
-</div>
+        <table class="data-table">
+          <caption>TikTok Creativity Program vs Old Creator Fund Comparison</caption>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Old Creator Fund</th>
+              <th>Creativity Program (2026)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Pay Rate (RPM)</strong></td>
+              <td>$0.02 - $0.04</td>
+              <td>$0.50 - $1.20+</td>
+            </tr>
+            <tr>
+              <td><strong>Video Length</strong></td>
+              <td>Any length</td>
+              <td>Must be >60 seconds</td>
+            </tr>
+            <tr>
+              <td><strong>View Quality</strong></td>
+              <td>All views count</td>
+              <td>Only "Qualified Views" count</td>
+            </tr>
+            <tr>
+              <td><strong>Earnings Potential</strong></td>
+              <td>Very Low (Pocket change)</td>
+              <td>High (Full-time potential)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <p>The bottom line? TikTok now pays significantly more, but only for longer, high-retention content. If you are
         still posting 15-second clips, you are likely missing out on 20x higher earnings. Check your <a
@@ -280,39 +305,39 @@
         engagement rate.</p>
 
       <div class="table-responsive">
-<table class="data-table">
-        <caption>TikTok Brand Sponsorship Rates by Influencer Tier (2026)</caption>
-        <thead>
-          <tr>
-            <th>Influencer Tier</th>
-            <th>Follower Count</th>
-            <th>Est. Brand Rate (Per Video)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Nano-Influencer</strong></td>
-            <td>1,000 - 10,000</td>
-            <td>$50 - $250</td>
-          </tr>
-          <tr>
-            <td><strong>Micro-Influencer</strong></td>
-            <td>10,000 - 50,000</td>
-            <td>$250 - $1,500</td>
-          </tr>
-          <tr>
-            <td><strong>Mid-Tier</strong></td>
-            <td>50,000 - 500,000</td>
-            <td>$1,500 - $5,000</td>
-          </tr>
-          <tr>
-            <td><strong>Macro-Influencer</strong></td>
-            <td>500,000 - 1M+</td>
-            <td>$5,000 - $15,000+</td>
-          </tr>
-        </tbody>
-      </table>
-</div>
+        <table class="data-table">
+          <caption>TikTok Brand Sponsorship Rates by Influencer Tier (2026)</caption>
+          <thead>
+            <tr>
+              <th>Influencer Tier</th>
+              <th>Follower Count</th>
+              <th>Est. Brand Rate (Per Video)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nano-Influencer</strong></td>
+              <td>1,000 - 10,000</td>
+              <td>$50 - $250</td>
+            </tr>
+            <tr>
+              <td><strong>Micro-Influencer</strong></td>
+              <td>10,000 - 50,000</td>
+              <td>$250 - $1,500</td>
+            </tr>
+            <tr>
+              <td><strong>Mid-Tier</strong></td>
+              <td>50,000 - 500,000</td>
+              <td>$1,500 - $5,000</td>
+            </tr>
+            <tr>
+              <td><strong>Macro-Influencer</strong></td>
+              <td>500,000 - 1M+</td>
+              <td>$5,000 - $15,000+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2>Other Ways to Earn on TikTok</h2>
       <p>Beyond views and sponsorships, successful creators diversify their income:</p>
@@ -332,49 +357,49 @@
         countries (Tier 1) and specific high-value niches command the highest RPMs in the Creativity Program.</p>
 
       <div class="table-responsive">
-<table class="data-table">
-        <caption>Average TikTok RPM Rates by Niche & Audience Location</caption>
-        <thead>
-          <tr>
-            <th>Niche / Category</th>
-            <th>Tier 1 RPM (US, UK, CA)</th>
-            <th>Tier 2 RPM (Other Regions)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Personal Finance & Business</strong></td>
-            <td>$0.90 - $1.50</td>
-            <td>$0.30 - $0.60</td>
-          </tr>
-          <tr>
-            <td><strong>Tech Reviews & Gadgets</strong></td>
-            <td>$0.80 - $1.20</td>
-            <td>$0.25 - $0.50</td>
-          </tr>
-          <tr>
-            <td><strong>Health & Lifestyle</strong></td>
-            <td>$0.60 - $1.00</td>
-            <td>$0.20 - $0.40</td>
-          </tr>
-          <tr>
-            <td><strong>Educational / Corporate</strong></td>
-            <td>$0.50 - $0.90</td>
-            <td>$0.15 - $0.35</td>
-          </tr>
-          <tr>
-            <td><strong>General Comedy / Skits</strong></td>
-            <td>$0.40 - $0.70</td>
-            <td>$0.10 - $0.25</td>
-          </tr>
-          <tr>
-            <td><strong>ASMR / Slime / Oddly Satisfying</strong></td>
-            <td>$0.20 - $0.50</td>
-            <td>$0.05 - $0.15</td>
-          </tr>
-        </tbody>
-      </table>
-</div>
+        <table class="data-table">
+          <caption>Average TikTok RPM Rates by Niche & Audience Location</caption>
+          <thead>
+            <tr>
+              <th>Niche / Category</th>
+              <th>Tier 1 RPM (US, UK, CA)</th>
+              <th>Tier 2 RPM (Other Regions)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Personal Finance & Business</strong></td>
+              <td>$0.90 - $1.50</td>
+              <td>$0.30 - $0.60</td>
+            </tr>
+            <tr>
+              <td><strong>Tech Reviews & Gadgets</strong></td>
+              <td>$0.80 - $1.20</td>
+              <td>$0.25 - $0.50</td>
+            </tr>
+            <tr>
+              <td><strong>Health & Lifestyle</strong></td>
+              <td>$0.60 - $1.00</td>
+              <td>$0.20 - $0.40</td>
+            </tr>
+            <tr>
+              <td><strong>Educational / Corporate</strong></td>
+              <td>$0.50 - $0.90</td>
+              <td>$0.15 - $0.35</td>
+            </tr>
+            <tr>
+              <td><strong>General Comedy / Skits</strong></td>
+              <td>$0.40 - $0.70</td>
+              <td>$0.10 - $0.25</td>
+            </tr>
+            <tr>
+              <td><strong>ASMR / Slime / Oddly Satisfying</strong></td>
+              <td>$0.20 - $0.50</td>
+              <td>$0.05 - $0.15</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <p>If you find that your TikTok earnings are lower than expected, you can compare your potential income on other
         platforms using our <a href="/instagram-earnings-calculator/">Instagram Calculator</a> or <a
@@ -501,42 +526,17 @@
   <script src="/shared.js" defer></script>
   <script defer>
     function calcTT() {
-      const followers = v('ttFollowers');
-      const views = v('ttViews'); // daily
+      const views = v('ttViews');
+      const rpm = parseFloat($('ttProgram').value);
+      const fund = views * rpm / 1000;
+      const spon = v('ttSponPosts') * v('ttSponVal');
+      const total = fund + spon;
 
-      // Input guard: prevent NaN and reset display
-      if (!followers || followers <= 0 || !views || views <= 0) {
-        set('ttAdRev', '$0.00');
-        set('ttSpon', '$0.00');
-        set('ttMonthly', '$0.00');
-        return;
-      }
-
-      const prog = $('ttProgram').value;
-
-      // Program Revenue Calculation
-      // If Creativity Program (CPB):
-      // Only ~40-50% of views are usually "Qualified" (longer than 5s, unique, etc.)
-      const qualifiedRatio = 0.50;
-      let rpm = (prog === 'cpb') ? 0.80 : 0.03;
-
-      let effectiveViews = (prog === 'cpb') ? (views * qualifiedRatio) : views;
-
-      const dailyRev = (effectiveViews / 1000) * rpm;
-      const monthlyRev = dailyRev * 30;
-
-      // Sponsorship Calculation
-      // Assumption: ~2 sponsored posts per month
-      // Rate: ~$10 per 1,000 followers (Standard industry rough estimate for micro-mid tier)
-      // We cap this slightly for very large accounts as the CPM decreases
-      const sponRate = 0.01; // $0.01 per follower ($10 per 1000)
-      const monthlySpon = (followers * sponRate) * 2;
-
-      const total = monthlyRev + monthlySpon;
-
-      set('ttAdRev', fmt(monthlyRev));
-      set('ttSpon', fmt(monthlySpon));
-      set('ttMonthly', fmt(total));
+      set('ttTotal', fmt(total));
+      set('ttFund', fmt(fund));
+      set('ttSpon', fmt(spon));
+      set('ttYearly', fmt(total * 12));
+      set('ttPerK', '$' + (views > 0 ? (total / views * 1000).toFixed(3) : '0.000'));
     }
     document.addEventListener('DOMContentLoaded', calcTT);
   </script>

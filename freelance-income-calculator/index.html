@@ -124,7 +124,20 @@
   <section class="page-hero">
     <div class="page-hero-inner">
       <div class="hero-badge anim-1">💻 Freelance Rate Map</div>
-      <h1 class="hero-h1 anim-2">Freelance Income <span class="grad">Calculator 2026</span></h1>
+      <h1 class="hero-h1 anim-2">
+        <svg width="54" height="54" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="hero-icon">
+          <defs>
+            <linearGradient id="flGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#22c55e" />
+              <stop offset="1" stop-color="#14b8a6" />
+            </linearGradient>
+          </defs>
+          <rect width="24" height="24" rx="6" fill="url(#flGrad)" />
+          <path d="M7 2V13H10V22L17 10H13L17 2H7Z" fill="white" />
+        </svg>
+        Freelance Income <span class="grad">Calculator 2026</span>
+      </h1>
       <div class="page-updated anim-3">Last Updated: February 2026</div>
       <p class="hero-sub anim-4">Determine your real take-home pay by factoring in taxes, expenses, and non-billable
         hours.</p>
@@ -136,45 +149,72 @@
       <div class="card">
         <div class="card-grid">
           <div class="card-left">
-            <div class="form-group">
-              <label>Hourly Rate ($)</label>
-              <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="frRate" value="75"
-                  placeholder="e.g. 75" oninput="calcFree()"></div>
+            <div class="input-row">
+              <div class="form-group">
+                <label>Hourly Rate ($)</label>
+                <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="flRate" value="50"></div>
+              </div>
+              <div class="form-group">
+                <label>Hours / Week</label>
+                <input type="number" id="flHours" value="40" max="168">
+              </div>
+            </div>
+            <div class="input-row">
+              <div class="form-group">
+                <label>Weeks / Month</label>
+                <input type="number" id="flWeeks" value="4" step="0.5" max="5">
+              </div>
+              <div class="form-group">
+                <label>Monthly Expenses ($)</label>
+                <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="flExp" value="200"></div>
+              </div>
+            </div>
+            <div class="range-group">
+              <div class="range-top">
+                <label>Tax Rate</label>
+                <span class="range-val" id="flTaxLbl">30%</span>
+              </div>
+              <input type="range" id="flTax" min="0" max="60" value="30">
             </div>
             <div class="form-group">
-              <label>Billable Hours (Weekly)</label>
-              <input type="number" id="frHours" value="25" placeholder="e.g. 25" oninput="calcFree()">
+              <label>Vacation Weeks / Year</label>
+              <input type="number" id="flVac" value="2" max="52">
             </div>
-            <div class="form-group">
-              <label>Monthly Expenses ($)</label>
-              <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="frExp" value="500"
-                  placeholder="e.g. Software, internet" oninput="calcFree()"></div>
-            </div>
-            <div class="form-group">
-              <label>Tax Rate Estimate (%)</label>
-              <input type="number" id="frTax" value="25" placeholder="e.g. 25" oninput="calcFree()">
-            </div>
-            <button class="btn-primary" onclick="calcFree()">⚡ Calculate Net Income</button>
-            <div class="notice mt-20">
-              <span class="notice-icon">ℹ️</span>
-              <span><strong>Gross Yearly:</strong> <span id="frGrossYear">$0.00</span></span><br>
-              <span><strong>Net Yearly:</strong> <span id="frNetYear">$0.00</span> (Take Home)</span>
+            <button class="btn-primary" onclick="calcFL()">⚡ Calculate Net Income</button>
+            <div class="notice" style="margin-top:14px">
+              <span class="notice-icon">⚠️</span>
+              <span>Set aside funds for self-employment tax, health insurance, and retirement savings. Consider
+                quarterly estimated tax payments.</span>
             </div>
           </div>
           <div class="card-right">
-            <div class="output-hero bg-gradient-adsense">
-              <div class="output-label">Yearly Take-Home</div>
-              <div class="output-value" id="flYearly">$0.00</div>
-              <div class="output-sub">Monthly: <span id="flMonthly">$0.00</span></div>
+            <div class="output-hero" style="background:linear-gradient(135deg,#22c55e,#14b8a6)">
+              <div class="output-label">Net Monthly Income</div>
+              <div class="output-value" id="flNet">$0.00</div>
+              <div class="output-sub" id="flSub">after expenses and tax</div>
             </div>
-            <br>
-            <div class="formula-box mt-20">
-              Formula: (Hourly × Billable Hours) - Taxes - Expenses
+            <div class="breakdown">
+              <div class="bd-item">
+                <div class="bd-val" id="flGross">$0.00</div>
+                <div class="bd-label">Gross Monthly</div>
+              </div>
+              <div class="bd-item">
+                <div class="bd-val" id="flAnnual">$0.00</div>
+                <div class="bd-label">Net Annual</div>
+              </div>
+              <div class="bd-item">
+                <div class="bd-val" id="flTaxAmt">$0.00</div>
+                <div class="bd-label">Tax Amount</div>
+              </div>
+              <div class="bd-item">
+                <div class="bd-val" id="flEffective">$0.00</div>
+                <div class="bd-label">Effective/hr</div>
+              </div>
             </div>
-            <div class="action-row mt-16">
-              <button class="act-btn" onclick="copyTxt('flYearly')">⎘ Copy Result</button>
-              <button class="act-btn" onclick="dlTxt('Freelance Income','Yearly: '+$('flYearly').textContent)">↓
-                Export</button>
+            <div class="formula">Net = (Rate × Hours × Weeks − Expenses) × (1 − Tax%)</div>
+            <div class="action-row">
+              <button class="act-btn" onclick="copyTxt('flNet')">⎘ Copy Result</button>
+              <button class="act-btn" onclick="dlTxt('Freelance Income')">↓ Export</button>
             </div>
           </div>
         </div>
@@ -486,36 +526,77 @@
 
   <script src="/shared.js" defer></script>
   <script defer>
-    function calcFree() {
-      const rate = v('frRate');
-      const hours = v('frHours');
-      const exp = v('frExp');
-      const tax = v('frTax');
+    function calcFL() {
+      if (typeof v !== 'function' || typeof $ !== 'function') return;
 
-      // Input guard: prevent NaN and reset display
-      if (!rate || rate <= 0 || !hours || hours <= 0) {
-        set('frGrossYear', '$0.00');
-        set('frNetYear', '$0.00');
-        set('flYearly', '$0.00');
-        set('flMonthly', '$0.00');
-        return;
+      const rate = v('flRate');
+      const hours = v('flHours');
+      const weeks = v('flWeeks');
+      const exp = v('flExp');
+
+      const taxElem = $('flTax');
+      const taxVal = taxElem ? parseFloat(taxElem.value) : 30;
+      const tax = taxVal / 100;
+      const vac = v('flVac');
+
+      // Update Labels
+      const taxLbl = $('flTaxLbl');
+      if (taxLbl) taxLbl.textContent = taxVal + '%';
+
+      // Monthly Logic
+      const gross = rate * hours * weeks;
+      const preTax = gross - exp;
+      const taxAmt = Math.max(0, preTax * tax);
+      const net = preTax - taxAmt;
+
+      // Annual Logic
+      // Total weeks worked = 52 - vacation
+      const workWeeks = 52 - vac;
+      // Annual Gross = Rate * Hours * WorkWeeks
+      const annualGross = rate * hours * workWeeks;
+      // Annual Exp = Monthly * 12
+      const annualExp = exp * 12;
+      // Annual PreTax
+      const annualPreTax = annualGross - annualExp;
+      // Annual Tax
+      const annualTaxAmt = Math.max(0, annualPreTax * tax);
+      // Annual Net
+      const annualNet = annualPreTax - annualTaxAmt;
+
+      // Effective Hourly Rate (Net Annual / Total Hours Worked)
+      const totalHours = hours * workWeeks;
+      const eff = totalHours > 0 ? annualNet / totalHours : 0;
+
+      set('flNet', fmt(net));
+      set('flGross', fmt(gross));
+      set('flAnnual', fmt(annualNet));
+      set('flTaxAmt', fmt(taxAmt)); // Monthly Tax Amount shown
+      set('flEffective', '$' + eff.toFixed(2));
+
+      // Update Subtitle with Average Monthly
+      const sub = document.getElementById('flSub');
+      if (sub) {
+        const avgMonthly = annualNet / 12;
+        sub.textContent = 'Avg: ' + fmt(avgMonthly) + '/mo (Annual / 12)';
       }
-
-      const weeklyGross = rate * hours;
-      const yearlyGross = weeklyGross * 50; // 2 weeks vacation
-      const yearlyExp = exp * 12;
-
-      const taxableIncome = yearlyGross - yearlyExp;
-      const taxAmount = taxableIncome * (tax / 100);
-
-      const netYearly = taxableIncome - taxAmount;
-      const netMonthly = netYearly / 12;
-
-      set('frGrossYear', fmt(yearlyGross));
-      set('frNetYear', fmt(netYearly));
-      set('frMonthly', fmt(netMonthly));
     }
-    document.addEventListener('DOMContentLoaded', calcFree);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = ['flRate', 'flHours', 'flWeeks', 'flExp', 'flTax', 'flVac'];
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', calcFL);
+          el.addEventListener('change', calcFL);
+          if (el.type === 'range') el.dispatchEvent(new Event('input'));
+        }
+      });
+
+      const btn = document.querySelector('.card-left .btn-primary');
+      if (btn) btn.addEventListener('click', calcFL);
+
+      setTimeout(calcFL, 100);
+    });
   </script>
 </body>
 

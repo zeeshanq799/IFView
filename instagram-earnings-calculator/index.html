@@ -124,7 +124,23 @@
   <section class="page-hero">
     <div class="page-hero-inner">
       <div class="hero-badge anim-1">Instagram Money Tool</div>
-      <h1 class="hero-h1 anim-2">Instagram Earnings <span class="grad">Calculator 2026</span></h1>
+      <h1 class="hero-h1 anim-2">
+        <svg width="54" height="54" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="hero-icon">
+          <defs>
+            <linearGradient id="igGrad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#833AB4" />
+              <stop offset="0.5" stop-color="#FD1D1D" />
+              <stop offset="1" stop-color="#F56040" />
+            </linearGradient>
+          </defs>
+          <rect width="24" height="24" rx="6" fill="url(#igGrad)" />
+          <path
+            d="M12 7C9.24 7 7 9.24 7 12C7 14.76 9.24 17 12 17C14.76 17 17 14.76 17 12C17 9.24 14.76 7 12 7ZM12 15.2C10.23 15.2 8.8 13.77 8.8 12C8.8 10.23 10.23 8.8 12 8.8C13.77 8.8 15.2 10.23 15.2 12C15.2 13.77 13.77 15.2 12 15.2ZM16.3 6.9C16.3 7.34 16.66 7.7 17.1 7.7C17.54 7.7 17.9 7.34 17.9 6.9C17.9 6.46 17.54 6.1 17.1 6.1C16.66 6.1 16.3 6.46 16.3 6.9ZM12 4.5C14.04 4.5 14.24 4.51 15 4.55C17.06 4.64 18.06 5.64 18.15 7.7C18.19 8.46 18.2 8.7 18.2 12C18.2 15.3 18.19 15.54 18.15 16.3C18.06 18.36 17.06 19.36 15 19.45C14.24 19.49 14.04 19.5 12 19.5C9.96 19.5 9.76 19.49 9 19.45C6.94 19.36 5.94 18.36 5.85 16.3C5.81 15.54 5.8 15.3 5.8 12C5.8 8.7 5.81 8.46 5.85 7.7C5.94 5.64 6.94 4.64 9 4.55C9.76 4.51 9.96 4.5 12 4.5ZM12 3C9.27 3 8.93 3.01 7.86 3.06C4.26 3.22 3.22 4.26 3.06 7.86C3.01 8.93 3 9.27 3 12C3 14.73 3.01 15.07 3.06 16.14C3.22 19.74 4.26 20.78 7.86 20.94C8.93 20.99 9.27 21 12 21C14.73 21 15.07 20.99 16.14 20.94C19.74 20.78 20.78 19.74 20.94 16.14C20.99 15.07 21 14.73 21 12C21 9.27 20.99 8.93 20.94 7.86C20.78 4.26 19.74 3.22 16.14 3.06C15.07 3.01 14.73 3 12 3Z"
+            fill="white" />
+        </svg>
+        Instagram Earnings <span class="grad">Calculator 2026</span>
+      </h1>
       <div class="page-updated anim-3">Last Updated: February 2026</div>
       <p class="hero-sub anim-4">Calculate how much you should charge for sponsored posts and stories based on your
         follower count and engagement rate.</p>
@@ -137,40 +153,72 @@
         <div class="card-grid">
           <div class="card-left">
             <div class="form-group">
-              <label>Number of Followers</label>
-              <input type="number" id="igFollowers" value="10000" placeholder="e.g. 10000" oninput="calcIG()">
+              <label>Followers</label>
+              <input type="number" id="igFollowers" value="50000">
+            </div>
+            <div class="range-group">
+              <div class="range-top">
+                <label>Engagement Rate</label>
+                <span class="range-val" id="igEngLbl">3.5%</span>
+              </div>
+              <input type="range" id="igEng" min="0.1" max="20" step="0.1" value="3.5">
             </div>
             <div class="form-group">
-              <label>Avg. Engagement Rate (%)</label>
-              <input type="number" id="igEngage" value="3.5" step="0.1" placeholder="e.g. 3.5" oninput="calcIG()">
+              <label>Niche / Industry</label>
+              <select id="igNiche">
+                <option value="1.5">💰 Finance / Business</option>
+                <option value="1.3">💻 Technology</option>
+                <option value="1.2">🏥 Health / Fitness</option>
+                <option value="1.1">💄 Beauty / Fashion</option>
+                <option value="1.0" selected>✨ Lifestyle</option>
+                <option value="0.9">🎭 Entertainment</option>
+                <option value="0.85">🍔 Food</option>
+                <option value="1.0">✈️ Travel</option>
+              </select>
             </div>
-            <div class="notice mt-20">
-              <span class="notice-icon">ℹ️</span>
-              <span><strong>Formula:</strong> Engagement = (Likes + Comments) ÷ Followers. High engagement (>3%) allows
-                you to charge premium rates.</span>
+            <div class="form-group">
+              <label>Sponsored Posts / Month</label>
+              <input type="number" id="igPosts" value="4">
             </div>
-            <button class="btn-primary" onclick="calcIG()">⚡ Calculate Rate</button>
+            <div class="form-group">
+              <label>Custom Post Rate ($ — leave 0 to auto)</label>
+              <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="igCustom" value="0"
+                  placeholder="Auto-calculated"></div>
+            </div>
+            <button class="btn-primary" onclick="calcIG()">⚡ Calculate Instagram Earnings</button>
           </div>
           <div class="card-right">
-            <div class="output-hero bg-gradient-insta">
-              <div class="output-label">Est. Earnings Per Post</div>
-              <div class="output-value" id="igPerPost">$0.00</div>
-              <div class="output-sub">Based on 2026 market rates</div>
+            <div class="output-hero" style="background:linear-gradient(135deg,#833AB4,#E1306C)">
+              <div class="output-label">Monthly Earnings</div>
+              <div class="output-value" id="igMonthly">$0.00</div>
+              <div class="output-sub" id="igTier">Micro Influencer</div>
             </div>
             <div class="breakdown">
               <div class="bd-item">
-                <div class="bd-val" id="igTier">-</div>
-                <div class="bd-label">Influencer Tier</div>
+                <div class="bd-val" id="igPerPost">$0.00</div>
+                <div class="bd-label">Per Post</div>
               </div>
               <div class="bd-item">
-                <div class="bd-val" id="igStory">$0.00</div>
-                <div class="bd-label">Per Story (24h)</div>
+                <div class="bd-val" id="igYearly">$0.00</div>
+                <div class="bd-label">Yearly</div>
               </div>
             </div>
-            <div class="action-row mt-16">
-              <button class="act-btn" onclick="copyTxt('igPerPost')">⎘ Copy Result</button>
-              <button class="act-btn" onclick="dlTxt('Instagram Earnings','Per Post: '+$('igPerPost').textContent)">↓
-                Export</button>
+            <div class="info-box">
+              <h4>Influencer Tiers</h4>
+              <div class="info-row"><span class="info-tag">Nano</span><span
+                  style="font-size:12px;color:var(--text-500)">&lt;10K followers — $10–$100/post</span></div>
+              <div class="info-row"><span class="info-tag">Micro</span><span
+                  style="font-size:12px;color:var(--text-500)">10K–50K — $100–$500/post</span></div>
+              <div class="info-row"><span class="info-tag">Mid</span><span
+                  style="font-size:12px;color:var(--text-500)">50K–100K — $500–$1,500/post</span></div>
+              <div class="info-row"><span class="info-tag">Macro</span><span
+                  style="font-size:12px;color:var(--text-500)">100K–500K — $1,500–$5,000/post</span></div>
+              <div class="info-row"><span class="info-tag">Mega</span><span
+                  style="font-size:12px;color:var(--text-500)">500K+ — $5,000–$50,000+/post</span></div>
+            </div>
+            <div class="action-row">
+              <button class="act-btn" onclick="copyTxt('igMonthly')">⎘ Copy</button>
+              <button class="act-btn" onclick="dlTxt('Instagram Earnings')">↓ Export</button>
             </div>
           </div>
         </div>
@@ -487,49 +535,81 @@
   <script src="/shared.js" defer></script>
   <script defer>
     function calcIG() {
-      const foll = v('igFollowers');
-      const eng = v('igEngage');
+      // Safety check for dependencies
+      if (typeof v !== 'function' || typeof $ !== 'function') return;
 
-      // Input guard: prevent NaN and reset display
-      if (!foll || foll <= 0) {
-        set('igTier', '-');
-        set('igPerPost', '$0.00');
-        set('igStory', '$0.00');
-        return;
-      }
+      const followers = v('igFollowers');
+      // Handle range input safely
+      const engElem = $('igEng');
+      const engVal = engElem ? parseFloat(engElem.value) : 3.5;
+      const eng = engVal / 100;
 
-      // Determine Tier
-      let tier = "Nano";
-      if (foll >= 10000) tier = "Micro";
-      if (foll >= 50000) tier = "Mid-Tier";
-      if (foll >= 500000) tier = "Macro";
-      if (foll >= 1000000) tier = "Mega";
+      // Update Engagement Label dynamically
+      const engLbl = $('igEngLbl');
+      if (engLbl) engLbl.textContent = engVal.toFixed(1) + '%';
 
-      // Base Rate Logic ($ per 1k followers)
-      // Nano: $10/1k
-      // Micro: $9/1k
-      // Mid: $8/1k
-      // Macro: $7/1k (Volume discount often applies)
-      let ratePer1k = 10;
-      if (foll >= 50000) ratePer1k = 9;
-      if (foll >= 500000) ratePer1k = 7;
+      // Niche
+      const nmElem = $('igNiche');
+      const nm = nmElem ? parseFloat(nmElem.value) : 1.0;
 
-      let baseRate = (foll / 1000) * ratePer1k;
+      const posts = v('igPosts');
+      const custom = v('igCustom');
 
-      // Engagement Multiplier
-      let mult = 1.0;
-      if (eng < 1.0) mult = 0.5;      // Penalty for phantom followers
-      else if (eng >= 3.0 && eng < 6.0) mult = 1.25; // Good
-      else if (eng >= 6.0) mult = 1.5; // Viral/Excellent
+      // Base Rate Logic
+      let base = 60; // Default fallback
+      if (followers < 10000) base = 60;
+      else if (followers < 50000) base = followers / 1000 * 10;
+      else if (followers < 100000) base = followers / 1000 * 14;
+      else if (followers < 500000) base = followers / 1000 * 18;
+      else base = followers / 1000 * 22;
 
-      let perPost = baseRate * mult;
-      let perStory = perPost * 0.4; // Story is ~40% of post value
+      // Apply Multipliers
+      // engagement multiplier: 3.5% is baseline (adds 0). 
+      // Higher engagement adds bonus. Lower subtracts.
+      // e.g. 5.5% -> 0.055 - 0.035 = 0.02. * 4 = 0.08. 1.08x multiplier.
+      let multiplier = 1 + (eng - 0.035) * 4;
+      if (multiplier < 0.5) multiplier = 0.5; // Prevent too low drop
 
-      set('igTier', tier);
+      base = base * nm * multiplier;
+      base = Math.max(base, 25); // Minimum $25
+
+      // Custom Override
+      const perPost = custom > 0 ? custom : base;
+      const monthly = perPost * posts;
+
+      // Tier Determination
+      let tier = '🌱 Nano Influencer';
+      if (followers >= 10000) tier = '📱 Micro Influencer';
+      if (followers >= 50000) tier = '🚀 Mid-Tier Influencer';
+      if (followers >= 100000) tier = '⭐ Macro Influencer';
+      if (followers >= 500000) tier = '💎 Mega Influencer';
+
+      // Update UI
+      set('igMonthly', fmt(monthly));
       set('igPerPost', fmt(perPost));
-      set('igStory', fmt(perStory));
+      set('igYearly', fmt(monthly * 12));
+      const tierEl = $('igTier');
+      if (tierEl) tierEl.textContent = tier;
     }
-    document.addEventListener('DOMContentLoaded', calcIG);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Attach Listeners
+      const inputs = ['igFollowers', 'igEng', 'igNiche', 'igPosts', 'igCustom'];
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', calcIG);
+          el.addEventListener('change', calcIG);
+        }
+      });
+
+      // Calculate Calculate Button
+      const btn = document.querySelector('.card-left .btn-primary');
+      if (btn) btn.addEventListener('click', calcIG);
+
+      // Initial Calculation
+      setTimeout(calcIG, 100); // Small delay to ensure shared.js ready
+    });
   </script>
 </body>
 

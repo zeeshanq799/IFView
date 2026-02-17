@@ -168,6 +168,7 @@
                 <span class="range-val" id="igEngLbl">3.5%</span>
               </div>
               <input type="range" id="igEng" min="0.1" max="20" step="0.1" value="3.5">
+              <div class="eng-benchmark" id="igEngStatus"></div>
             </div>
             <div class="form-group">
               <label>Niche / Industry</label>
@@ -191,7 +192,26 @@
               <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="igCustom" value="0"
                   placeholder="Auto-calculated"></div>
             </div>
+            <div class="format-options">
+              <label><input type="checkbox" id="igReel"> Include Reel (+20%)</label>
+              <label><input type="checkbox" id="igStory"> Include Story Package (+40%)</label>
+            </div>
+            <p class="auto-note" style="margin-top: 10px;">
+              💡 Adjust values — results update automatically.
+            </p>
             <button class="btn-primary" onclick="calcIG()">⚡ Calculate Instagram Earnings</button>
+            <button class="btn-ghost" onclick="resetIG()">
+              ↺ Reset
+            </button>
+            <div style="margin-top:20px;">
+              <a href="/youtube-earnings-calculator/" class="cta-mini" style="text-decoration: none;">
+                👉 Compare with YouTube earnings →
+              </a><br>
+              <a href="/tiktok-earnings-calculator/" class="cta-mini" style="text-decoration: none;">
+                👉 Compare with TikTok earnings →
+              </a>
+            </div>
+
           </div>
           <div class="card-right">
             <div class="output-hero" style="background:linear-gradient(135deg,#833AB4,#E1306C)">
@@ -209,6 +229,8 @@
                 <div class="bd-label">Yearly</div>
               </div>
             </div>
+            <div class="insight-box" id="igInsight"></div>
+            <div class="goal-box" id="igGoal"></div>
             <div class="info-box">
               <h4>Influencer Tiers</h4>
               <div class="info-row"><span class="info-tag">Nano</span><span
@@ -581,7 +603,6 @@
 
       // Custom Override
       const perPost = custom > 0 ? custom : base;
-      const monthly = perPost * posts;
 
       // Tier Determination
       let tier = '🌱 Nano Influencer';
@@ -589,18 +610,95 @@
       if (followers >= 50000) tier = '🚀 Mid-Tier Influencer';
       if (followers >= 100000) tier = '⭐ Macro Influencer';
       if (followers >= 500000) tier = '💎 Mega Influencer';
+      let finalRate = perPost;
 
-      // Update UI
+      if ($('igReel')?.checked) finalRate *= 1.2;
+      if ($('igStory')?.checked) finalRate *= 1.4;
+
+      const monthly = finalRate * posts;
+
+      set('igPerPost', fmt(finalRate));
       set('igMonthly', fmt(monthly));
-      set('igPerPost', fmt(perPost));
       set('igYearly', fmt(monthly * 12));
       const tierEl = $('igTier');
       if (tierEl) tierEl.textContent = tier;
+
+      // Engagement Benchmark Status
+      let engStatus = '';
+      if (engVal < 1) engStatus = '🔴 Very Low Engagement';
+      else if (engVal < 3) engStatus = '🟡 Average Engagement';
+      else if (engVal < 6) engStatus = '🟢 High Engagement';
+      else engStatus = '🔥 Elite Engagement';
+
+      const engStatusEl = $('igEngStatus');
+      if (engStatusEl) engStatusEl.textContent = engStatus;
+
+      // Smart Pricing Insight
+      let suggestedMin = perPost * 0.9;
+      let suggestedMax = perPost * 1.2;
+
+      let insightText = `💡 Based on your engagement and niche, 
+      you could confidently charge between 
+      <strong>${fmt(suggestedMin)}</strong> – <strong>${fmt(suggestedMax)}</strong> per post.`;
+
+      const insightEl = $('igInsight');
+      if (insightEl) insightEl.innerHTML = insightText;
+
+      // Income Goal Calculation
+      const goalIncome = 5000; // default goal
+      let neededPosts = Math.ceil(goalIncome / perPost);
+
+      let goalText = `🎯 To earn ${fmt(goalIncome)} per month, 
+      you need approximately <strong>${neededPosts}</strong> sponsored posts.`;
+
+      const goalEl = $('igGoal');
+      if (goalEl) goalEl.innerHTML = goalText;
+
+
+
+    }
+    function resetIG() {
+      $('igFollowers').value = 50000;
+      $('igEng').value = 3.5;
+      $('igPosts').value = 4;
+      $('igCustom').value = 0;
+      $('igNiche').value = "1.0";
+      $('igReel').checked = false;
+      $('igStory').checked = false;
+      calcIG();
+      // Optional small visual feedback
+      const btn = document.querySelector('.btn-ghost');
+      btn.textContent = "✓ Reset";
+      setTimeout(() => {
+        btn.textContent = "↺ Reset";
+      }, 1200);
+    }
+    const calcBtn = document.querySelector('.btn-primary');
+
+    if (calcBtn) {
+      calcBtn.addEventListener('click', function () {
+        this.classList.add('loading');
+        this.innerHTML = '⏳ Calculating...';
+
+        setTimeout(() => {
+          this.classList.remove('loading');
+          this.innerHTML = '⚡ Calculate Instagram Earnings';
+        }, 400);
+      });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       // Attach Listeners
-      const inputs = ['igFollowers', 'igEng', 'igNiche', 'igPosts', 'igCustom'];
+      const inputs = [
+        'igFollowers',
+        'igEng',
+        'igNiche',
+        'igPosts',
+        'igCustom',
+        'igReel',
+        'igStory'
+      ];
+
       inputs.forEach(id => {
         const el = document.getElementById(id);
         if (el) {

@@ -179,7 +179,39 @@
               <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="ttSponVal" value="500"
                   oninput="calcTT()"></div>
             </div>
+            <div class="form-group">
+              <label>Audience Country</label>
+              <select id="ttCountry" onchange="calcTT()">
+                <option value="1" selected>🌍 Global Average (×1.0)</option>
+                <option value="3.2">🇺🇸 United States (×3.2)</option>
+                <option value="2.8">🇬🇧 United Kingdom (×2.8)</option>
+                <option value="2.5">🇦🇺 Australia (×2.5)</option>
+                <option value="2.1">🇨🇦 Canada (×2.1)</option>
+                <option value="1.8">🇩🇪 Germany (×1.8)</option>
+                <option value="1.5">🇫🇷 France (×1.5)</option>
+                <option value="0.5">🇧🇷 Brazil (×0.5)</option>
+                <option value="0.55">🇵🇭 Philippines (×0.55)</option>
+                <option value="0.45">🇳🇬 Nigeria (×0.45)</option>
+                <option value="0.4">🇮🇳 India (×0.4)</option>
+                <option value="0.35">🇵🇰 Pakistan (×0.35)</option>
+                <option value="0.3">🇧🇩 Bangladesh (×0.3)</option>
+              </select>
+            </div>
+
+
+            <div class="quick-views">
+              <button class="quick-btn" onclick="setTTScenario(1000000)">1M</button>
+              <button class="quick-btn" onclick="setTTScenario(5000000)">5M</button>
+              <button class="quick-btn" onclick="setTTScenario(10000000)">10M</button>
+            </div>
+
+            <p class="auto-note" style="margin-top: 10px;">
+              💡 Adjust values — results update automatically.
+            </p>
             <button class="btn-primary" onclick="calcTT()">⚡ Calculate TikTok Earnings</button>
+            <button class="btn-ghost" onclick="resetTT()">
+              ↺ Reset
+            </button>
           </div>
           <div class="card-right">
             <div class="output-hero" style="background:linear-gradient(135deg,#00B4D8,#EE1D52)">
@@ -209,6 +241,19 @@
               <button class="act-btn" onclick="copyTxt('ttTotal')">⎘ Copy</button>
               <button class="act-btn" onclick="dlTxt('TikTok Earnings')">↓ Export</button>
               <button class="act-btn" onclick="shareIt()">⤴ Share</button>
+            </div>
+            <div class="insight-box">
+              <div class="insight-title">📊 Earnings Insight</div>
+              <p id="ttInsight">Adjust values to see personalized insights.</p>
+            </div>
+            <div class="goal-box">
+              <div class="goal-title">🎯 Income Goals</div>
+              <div id="ttGoal"></div>
+            </div>
+            <div style="margin-top:16px;">
+              <a href="/youtube-earnings-calculator/" class="cta-mini" style="text-decoration: none;">
+                👉 Compare with YouTube earnings →
+              </a>
             </div>
           </div>
         </div>
@@ -533,7 +578,10 @@
   <script defer>
     function calcTT() {
       const views = v('ttViews');
-      const rpm = parseFloat($('ttProgram').value);
+      const baseRPM = parseFloat($('ttProgram').value);
+      const countryMult = parseFloat($('ttCountry').value) || 1;
+      const rpm = baseRPM * countryMult;
+
       const fund = views * rpm / 1000;
       const spon = v('ttSponPosts') * v('ttSponVal');
       const total = fund + spon;
@@ -543,7 +591,84 @@
       set('ttSpon', fmt(spon));
       set('ttYearly', fmt(total * 12));
       set('ttPerK', '$' + (views > 0 ? (total / views * 1000).toFixed(3) : '0.000'));
+
+      // 🔹 Earnings Insight
+      let insight = '';
+
+      if (total < 1000) {
+        insight = 'You are in the early-stage creator range. Increasing monthly views to 2M could double income.';
+      } else if (total < 5000) {
+        insight = 'You are in the growing creator range. Sponsorships now significantly impact earnings.';
+      } else {
+        insight = 'You are operating at advanced creator level. Focus on scaling sponsorship value and premium audiences.';
+      }
+
+      document.getElementById('ttInsight').textContent = insight;
+
+      // 🔹 Goal Calculation (Country Adjusted)
+      const goal = 5000;
+      const requiredViews = rpm > 0 ? (goal / rpm) * 1000 : 0;
+
+      document.getElementById('ttGoal').innerHTML =
+        `To earn $5,000/month → approx ${Math.round(requiredViews).toLocaleString()} monthly views`;
     }
+
+    function setTTScenario(v) {
+      document.getElementById('ttViews').value = v;
+      calcTT();
+
+      document.querySelectorAll('.quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      event.target.classList.add('active');
+    }
+
+    document.getElementById('ttViews').addEventListener('input', () => {
+      document.querySelectorAll('.quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+    });
+
+
+    const calcBtn = document.querySelector('.btn-primary');
+
+    if (calcBtn) {
+      calcBtn.addEventListener('click', function () {
+        this.classList.add('loading');
+        this.innerHTML = '⏳ Calculating...';
+
+        setTimeout(() => {
+          this.classList.remove('loading');
+          this.innerHTML = '⚡ Calculate TikTok Earnings';
+        }, 400);
+      });
+    }
+    function resetTT() {
+
+      // Reset inputs to original defaults
+      document.getElementById('ttViews').value = 1000000;
+      document.getElementById('ttProgram').value = "0.50";
+      document.getElementById('ttCountry').value = "1";
+      document.getElementById('ttSponPosts').value = 2;
+      document.getElementById('ttSponVal').value = 500;
+
+      document.querySelectorAll('.quick-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      // Recalculate after reset
+      calcTT();
+      // Optional small visual feedback
+      const btn = document.querySelector('.btn-ghost');
+      btn.textContent = "✓ Reset";
+      setTimeout(() => {
+        btn.textContent = "↺ Reset";
+      }, 1200);
+
+    }
+
+
     document.addEventListener('DOMContentLoaded', calcTT);
   </script>
 </body>

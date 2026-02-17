@@ -2930,3 +2930,106 @@ input[type="range"]::-webkit-slider-thumb:hover {
   opacity: 0.8;
   pointer-events: none;
 }
+
+/* Quick View Presets */
+.quick-views {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.quick-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text-600);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quick-btn:hover {
+  background: linear-gradient(135deg, #00B4D8, #EE1D52);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+
+.quick-btn:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+
+.quick-btn.active {
+  background: linear-gradient(135deg, #00B4D8, #EE1D52);
+  color: white;
+  border-color: transparent;
+}
+
+.eng-benchmark {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-500);
+}
+
+.insight-box {
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: var(--surface2);
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.goal-box {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #f0f9ff;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+/* Quick View Buttons Wrapper */
+.quick-views {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+/* Individual Button */
+.qv-btn {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid var(--border, #e5e7eb);
+  background: #ffffff;
+  color: var(--text-700, #374151);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.qv-btn:hover {
+  background: #f3f4f6;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+/* Active Click Effect */
+.qv-btn:active {
+  transform: scale(0.96);
+}
+
+/* Selected State (optional enhancement) */
+.qv-btn.active {
+  background: linear-gradient(135deg, #4285F4, #34A853);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.25);
+}

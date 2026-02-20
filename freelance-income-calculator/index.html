@@ -193,11 +193,27 @@
               <label>Vacation Weeks / Year</label>
               <input type="number" id="flVac" value="2" max="52">
             </div>
+            <p class="auto-note">
+              💡 Adjust values — results update automatically.
+            </p>
+
             <button class="btn-primary" onclick="calcFL()">⚡ Calculate Net Income</button>
+            <button class="btn-ghost"
+              onclick="resetForm(['flRate','flHours','flWeeks','flExp','flTax','flVac']);calcFL()">↺ Reset</button>
             <div class="notice" style="margin-top:14px">
               <span class="notice-icon">⚠️</span>
               <span>Set aside funds for self-employment tax, health insurance, and retirement savings. Consider
                 quarterly estimated tax payments.</span>
+            </div>
+
+            <div class="insight-box" id="flInsightBox" style="margin-top:20px;display:none;">
+              <div style="font-weight:600;margin-bottom:8px;">📊 Income Analysis</div>
+              <div id="flInsightText" style="font-size:0.95rem;color:var(--text-600);"></div>
+            </div>
+
+            <div class="goal-box" style="margin-top:20px;">
+              <div style="font-weight:600;margin-bottom:8px;">🎯 Savings Goals</div>
+              <div id="flGoals" style="font-size:0.9rem;color:var(--text-600);"></div>
             </div>
           </div>
           <div class="card-right">
@@ -224,10 +240,23 @@
                 <div class="bd-label">Effective/hr</div>
               </div>
             </div>
-            <div class="formula">Net = (Rate × Hours × Weeks − Expenses) × (1 − Tax%)</div>
+            <div class="formula" id="flFormula">Net = (Rate × Hours × Weeks − Expenses) × (1 − Tax%)</div>
+
             <div class="action-row">
               <button class="act-btn" onclick="copyTxt('flNet')">⎘ Copy Result</button>
               <button class="act-btn" onclick="dlTxt('Freelance Income')">↓ Export</button>
+              <button class="act-btn" onclick="shareIt()">⤴ Share</button>
+            </div>
+
+            <div style="margin-top:16px;">
+              <a href="/youtube-earnings-calculator/" class="cta-mini" style="text-decoration: none;">
+                👉 Compare with YouTube potential →
+              </a>
+            </div>
+            <div>
+              <a href="/affiliate-earnings-calculator/" class="cta-mini" style="text-decoration: none;">
+                👉 Explore affiliate revenue →
+              </a>
             </div>
           </div>
         </div>
@@ -592,6 +621,59 @@
         const avgMonthly = annualNet / 12;
         sub.textContent = 'Avg: ' + fmt(avgMonthly) + '/mo (Annual / 12)';
       }
+
+      const formLink = $('flFormula');
+      if (formLink) formLink.textContent = `Net = (${fmt(rate)} × ${hours}h × ${weeks}w − ${fmt(exp)}) × ${(1 - tax).toFixed(2)} = ${fmt(net)}`;
+
+      generateFLInsight(net, taxVal);
+      generateFLGoals(annualNet);
+    }
+
+    function generateFLInsight(net, tax) {
+      const box = document.getElementById('flInsightBox');
+      const txt = document.getElementById('flInsightText');
+      if (!box || !txt) return;
+
+      let message = '';
+      if (tax > 40) message = "Your tax rate is high. Consider consulting a professional for possible business deductions.";
+      else if (net > 8000) message = "Excellent! You have a high net income. Diversifying into passive income could build long-term wealth.";
+      else if (net > 4000) message = "Great base! Optimizing your overhead could further increase your monthly take-home pay.";
+      else message = "Consider raising your hourly rate or upskilling to increase your net earnings potential.";
+
+      txt.textContent = message;
+      box.style.display = 'block';
+    }
+
+    function generateFLGoals(annual) {
+      const goalEl = document.getElementById('flGoals');
+      if (!goalEl) return;
+
+      const monthly = annual / 12;
+      const taxReserve = monthly * 0.3;
+      const emergencyFund = monthly * 6;
+
+      goalEl.innerHTML = `
+        Monthly Tax Reserve: <strong>${fmt(taxReserve)}</strong> (Recommended 30%)<br>
+        6-Month Emergency Fund: <strong>${fmt(emergencyFund)}</strong><br>
+        Yearly Investment Target: <strong>${fmt(annual * 0.15)}</strong> (15% goal)
+      `;
+    }
+
+    function resetForm(ids) {
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (el.tagName === 'SELECT') {
+          el.selectedIndex = 0;
+        } else {
+          el.value = el.defaultValue || '';
+        }
+      });
+      const btn = document.querySelector('.btn-ghost');
+      if (btn) {
+        btn.textContent = "✓ Reset";
+        setTimeout(() => { btn.textContent = "↺ Reset"; }, 1200);
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -606,7 +688,16 @@
       });
 
       const btn = document.querySelector('.card-left .btn-primary');
-      if (btn) btn.addEventListener('click', calcFL);
+      if (btn) {
+        btn.addEventListener('click', function () {
+          this.classList.add('loading');
+          this.innerHTML = '⏳ Calculating...';
+          setTimeout(() => {
+            this.classList.remove('loading');
+            this.innerHTML = '⚡ Calculate Net Income';
+          }, 400);
+        });
+      }
 
       setTimeout(calcFL, 100);
     });

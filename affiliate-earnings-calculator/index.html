@@ -188,7 +188,23 @@
                 <option value="0.8">🎮 Gaming / Entertainment</option>
               </select>
             </div>
+            <p class="auto-note">
+              💡 Adjust values — results update automatically.
+            </p>
+
             <button class="btn-primary" onclick="calcAF()">⚡ Calculate Affiliate Income</button>
+            <button class="btn-ghost" onclick="resetForm(['afTraffic','afConv','afComm','afType']);calcAF()">↺
+              Reset</button>
+
+            <div class="insight-box" id="afInsightBox" style="margin-top:20px;display:none;">
+              <div style="font-weight:600;margin-bottom:8px;">📊 Performance Analysis</div>
+              <div id="afInsightText" style="font-size:0.95rem;color:var(--text-600);"></div>
+            </div>
+
+            <div class="goal-box" style="margin-top:20px;">
+              <div style="font-weight:600;margin-bottom:8px;">🎯 Growth Targets</div>
+              <div id="afGoals" style="font-size:0.9rem;color:var(--text-600);"></div>
+            </div>
           </div>
           <div class="card-right">
             <div class="output-hero" style="background:linear-gradient(135deg,#8b5cf6,#3b82f6)">
@@ -214,10 +230,23 @@
                 <div class="bd-label">@ 100K Traffic</div>
               </div>
             </div>
-            <div class="formula">Revenue = Traffic × <span id="afConvFml">Conv%</span> × Commission</div>
+            <div class="formula" id="afFormula">Revenue = Traffic × <span id="afConvFml">Conv%</span> × Commission</div>
+
             <div class="action-row">
               <button class="act-btn" onclick="copyTxt('afMonthly')">⎘ Copy</button>
               <button class="act-btn" onclick="dlTxt('Affiliate Earnings')">↓ Export</button>
+              <button class="act-btn" onclick="shareIt()">⤴ Share</button>
+            </div>
+
+            <div style="margin-top:16px;">
+              <a href="/adsense-revenue-calculator/" class="cta-mini" style="text-decoration: none;">
+                👉 Compare with AdSense revenue →
+              </a>
+            </div>
+            <div>
+              <a href="/youtube-earnings-calculator/" class="cta-mini" style="text-decoration: none;">
+                👉 Check YouTube earnings potential →
+              </a>
             </div>
           </div>
         </div>
@@ -572,6 +601,55 @@
 
       const convFml = $('afConvFml');
       if (convFml) convFml.textContent = (conv * 100).toFixed(1) + '%';
+
+      const fmlEl = $('afFormula');
+      if (fmlEl) fmlEl.textContent = `Revenue = ${traffic.toLocaleString()} × ${(conv * 100).toFixed(1)}% × ${fmt(comm)} = ${fmt(monthly)}`;
+
+      generateAFInsight(monthly, convVal);
+      generateAFGoals(monthly);
+    }
+
+    function generateAFInsight(monthly, conv) {
+      const box = document.getElementById('afInsightBox');
+      const txt = document.getElementById('afInsightText');
+      if (!box || !txt) return;
+
+      let message = '';
+      if (conv < 1) message = "Your conversion rate is below average. Consider optimizing your landing page or targeting higher-intent keywords.";
+      else if (monthly > 5000) message = "Great scale! You have a highly profitable affiliate funnel. Scaling traffic could yield massive returns.";
+      else if (conv > 5) message = "Strong conversion rate! Focus on driving more high-quality traffic to maximize this performance.";
+      else message = "Good foundation. Experimenting with different affiliate programs or higher-ticket offers could boost your ROI.";
+
+      txt.textContent = message;
+      box.style.display = 'block';
+    }
+
+    function generateAFGoals(monthly) {
+      const goalEl = document.getElementById('afGoals');
+      if (!goalEl) return;
+
+      goalEl.innerHTML = `
+        2x Traffic Growth: <strong>${fmt(monthly * 2)}</strong><br>
+        5% Conversion Goal: <strong>${fmt(monthly * (5 / v('afConv')))}</strong><br>
+        Target Annual Revenue: <strong>${fmt(monthly * 12 * 1.5)}</strong> (50% Growth)
+      `;
+    }
+
+    function resetForm(ids) {
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (el.tagName === 'SELECT') {
+          el.selectedIndex = 0;
+        } else {
+          el.value = el.defaultValue || '';
+        }
+      });
+      const btn = document.querySelector('.btn-ghost');
+      if (btn) {
+        btn.textContent = "✓ Reset";
+        setTimeout(() => { btn.textContent = "↺ Reset"; }, 1200);
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -589,7 +667,16 @@
       });
 
       const btn = document.querySelector('.card-left .btn-primary');
-      if (btn) btn.addEventListener('click', calcAF);
+      if (btn) {
+        btn.addEventListener('click', function () {
+          this.classList.add('loading');
+          this.innerHTML = '⏳ Calculating...';
+          setTimeout(() => {
+            this.classList.remove('loading');
+            this.innerHTML = '⚡ Calculate Affiliate Income';
+          }, 400);
+        });
+      }
 
       setTimeout(calcAF, 100);
     });

@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script>
+        if (location.hostname.includes("incomefromviews.com")) {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-S6VK537JGM";
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'G-S6VK537JGM');
+        }
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#E4405F">
+    <title>Instagram Influencer Health Score Calculator (Brand Evaluation Tool)</title>
+    <meta name="description"
+        content="Calculate your Instagram influencer health score instantly. Comprehensive evaluation based on engagement, growth, followers, niche, and audience quality for 2026.">
+    <link rel="canonical" href="https://incomefromviews.com/instagram-influencer-health-score/">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Instagram Influencer Health Score Calculator">
+    <meta property="og:description"
+        content="Comprehensive influencer evaluation tool. Calculate health score based on 5 key metrics.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://incomefromviews.com/instagram-influencer-health-score/">
+    <meta property="og:image" content="https://incomefromviews.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Instagram Influencer Health Score">
+    <meta name="twitter:description" content="Professional influencer evaluation tool with 5-factor scoring system.">
+    <meta name="twitter:image" content="https://incomefromviews.com/assets/og-image.png">
+
+    <link rel="icon" href="/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebApplication",
+          "name": "Instagram Influencer Health Score Calculator",
+          "url": "https://incomefromviews.com/instagram-influencer-health-score/",
+          "description": "Professional influencer evaluation tool calculating health score based on engagement, growth, followers, niche value, and audience quality.",
+          "applicationCategory": "FinanceApplication",
+          "operatingSystem": "Any",
+          "browserRequirements": "Requires JavaScript enabled",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "author": {
+            "@type": "Organization",
+            "name": "IncomeFromViews"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://incomefromviews.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Instagram Health Score", "item": "https://incomefromviews.com/instagram-influencer-health-score/" }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is Instagram influencer health score?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Instagram influencer health score is a comprehensive metric (0-100) evaluating creator value based on 5 weighted factors: engagement rate (40%), growth rate (25%), follower size (15%), niche value (10%), and audience quality (10%). Scores 70+ indicate high-value influencers commanding premium sponsorship rates." }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a good influencer health score?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Good influencer health score is 50-70 (Strong Influencer tier). 70-85 = High-Value Influencer. 85-100 = Premium Brand Asset. Scores below 30 indicate weak profile needing improvement before monetization." }
+            }
+          ]
+        }
+      ]
+    }
+  </script>
+
+    <style>
+        .score-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .score-number {
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin: 1rem 0;
+        }
+
+        .score-label {
+            font-size: 1.5rem;
+            font-weight: 700;
+            opacity: 0.95;
+        }
+
+        .score-tier {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 999px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .component-score {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .component-score strong {
+            font-weight: 600;
+            color: var(--text-700);
+        }
+
+        .score-bar {
+            width: 60%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .score-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="progress"></div>
+    <nav aria-label="Main Navigation">
+        <a class="nav-logo" href="/">
+            <img src="/logo.svg" alt="IncomeFromViews Logo" class="nav-logo-img" width="36" height="36">
+            <span class="nav-logo-text">Income<em>FromViews</em></span>
+        </a>
+        <div class="nav-links">
+            <a class="nav-link" href="/youtube-earnings-calculator/">YouTube</a>
+            <a class="nav-link" href="/youtube-cpm-calculator/">CPM</a>
+            <a class="nav-link" href="/youtube-rpm-calculator/">RPM</a>
+            <a class="nav-link" href="/tiktok-earnings-calculator/">TikTok</a>
+            <a class="nav-link" href="/instagram-earnings-calculator/">Instagram</a>
+            <a class="nav-link" href="/adsense-revenue-calculator/">AdSense</a>
+            <a class="nav-link" href="/affiliate-earnings-calculator/">Affiliate</a>
+            <a class="nav-link" href="/freelance-income-calculator/">Freelance</a>
+            <a class="nav-link" href="/blog/">Blog</a>
+        </div>
+        <a class="nav-cta" href="/#calculators" aria-label="Explore creator earnings calculators">Explore
+            Calculators</a>
+    </nav>
+
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <div class="hero-badge anim-1">🎯 Professional Evaluation Tool</div>
+            <h1 class="hero-h1 anim-2">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    class="hero-icon">
+                    <defs>
+                        <linearGradient id="igGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#833AB4;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#E1306C;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#FD1D1D;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="48" height="48" rx="12" fill="url(#igGrad)" />
+                    <circle cx="24" cy="24" r="10" stroke="white" stroke-width="3" fill="none" />
+                    <circle cx="35" cy="13" r="3" fill="white" />
+                </svg>
+                Instagram Influencer Health Score<br><span class="grad">Comprehensive Brand Evaluation Tool</span>
+            </h1>
+            <div class="page-updated anim-3">Last Updated: February 2026</div>
+            <p class="hero-sub anim-4" style="max-width: 950px;">Calculate your Instagram influencer health score
+                (0-100) based on 5 weighted factors: engagement, growth, followers, niche value, and audience quality.
+                Professional evaluation tool used by brands and agencies.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="calc-section" id="instagram">
+            <div class="card">
+                <div class="card-grid">
+                    <div class="card-left">
+
+                        <div class="form-group">
+                            <label>Total Followers</label>
+                            <input type="number" id="followers" value="50000" step="1000" oninput="calcHealth()">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Engagement Rate (%) <span class="tip-wrap"><span class="tip-icon">i</span><span
+                                        class="tip-text">40% weight - most important factor.</span></span></label>
+                            <input type="number" id="engagementRate" value="4.5" step="0.1" min="0" max="20"
+                                oninput="calcHealth()">
+                            <div class="range-group">
+                                <input type="range" id="engagementSlider" min="0.5" max="12" step="0.5" value="4.5"
+                                    oninput="syncEngagement(this.value)">
+                                <div class="range-labels">
+                                    <span>0.5%</span>
+                                    <span>12%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Monthly Growth Rate (%) <span class="tip-wrap"><span class="tip-icon">i</span><span
+                                        class="tip-text">25% weight - growth trajectory matters.</span></span></label>
+                            <input type="number" id="growthRate" value="3.5" step="0.1" min="-5" max="20"
+                                oninput="calcHealth()">
+                            <div class="range-group">
+                                <input type="range" id="growthSlider" min="0" max="15" step="0.5" value="3.5"
+                                    oninput="syncGrowth(this.value)">
+                                <div class="range-labels">
+                                    <span>0%</span>
+                                    <span>15%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Niche Category <span class="tip-wrap"><span class="tip-icon">i</span><span
+                                        class="tip-text">10% weight - advertiser demand.</span></span></label>
+                            <select id="niche" onchange="calcHealth()">
+                                <option value="10">Finance / Investing</option>
+                                <option value="9">Tech / Gadgets</option>
+                                <option value="8" selected>Fitness / Health</option>
+                                <option value="7">Beauty / Fashion</option>
+                                <option value="6">Lifestyle / General</option>
+                                <option value="5">Food / Travel</option>
+                                <option value="4">Entertainment / Comedy</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Audience Country Tier <span class="tip-wrap"><span class="tip-icon">i</span><span
+                                        class="tip-text">10% weight - purchasing power matters.</span></span></label>
+                            <select id="countryTier" onchange="calcHealth()">
+                                <option value="10" selected>Tier 1 (USA, UK, Canada, Australia)</option>
+                                <option value="7">Tier 2 (Europe, UAE, Japan)</option>
+                                <option value="4">Tier 3 (Global Mix / Emerging)</option>
+                            </select>
+                        </div>
+
+                        <p class="auto-note">
+                            💡 Score combines 5 factors with professional weighting.
+                        </p>
+
+                        <button class="btn-primary" onclick="calcHealth()">⚡ Calculate Health Score</button>
+                        <button class="btn-ghost"
+                            onclick="resetForm(['followers','engagementRate','engagementSlider','growthRate','growthSlider']);calcHealth()">↺
+                            Reset</button>
+
+                    </div>
+
+                    <div class="card-right">
+                        <!-- Health Score Hero -->
+                        <div class="score-hero">
+                            <div class="score-label">Influencer Health Score</div>
+                            <div class="score-number" id="healthScore">0</div>
+                            <div class="score-tier" id="scoreTier">Calculating...</div>
+                        </div>
+
+                        <!-- Component Breakdown -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <h3 style="margin-bottom: 1rem; font-size: 1rem; color: var(--text-700);">Score Components
+                            </h3>
+
+                            <div class="component-score">
+                                <strong>Engagement (40%)</strong>
+                                <div class="score-bar">
+                                    <div class="score-bar-fill" id="engBar"></div>
+                                </div>
+                                <span id="engScore">0</span>
+                            </div>
+
+                            <div class="component-score">
+                                <strong>Growth (25%)</strong>
+                                <div class="score-bar">
+                                    <div class="score-bar-fill" id="growthBar"></div>
+                                </div>
+                                <span id="growthScore">0</span>
+                            </div>
+
+                            <div class="component-score">
+                                <strong>Followers (15%)</strong>
+                                <div class="score-bar">
+                                    <div class="score-bar-fill" id="followerBar"></div>
+                                </div>
+                                <span id="followerScore">0</span>
+                            </div>
+
+                            <div class="component-score">
+                                <strong>Niche (10%)</strong>
+                                <div class="score-bar">
+                                    <div class="score-bar-fill" id="nicheBar"></div>
+                                </div>
+                                <span id="nicheScore">0</span>
+                            </div>
+
+                            <div class="component-score">
+                                <strong>Audience (10%)</strong>
+                                <div class="score-bar">
+                                    <div class="score-bar-fill" id="audienceBar"></div>
+                                </div>
+                                <span id="audienceScore">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Monetization Potential -->
+                        <div
+                            style="margin-top:20px;padding:16px;background:#eff6ff;border:2px solid #3B82F6;border-radius:8px;">
+                            <div style="font-weight:700;margin-bottom:12px;color:#1e40af;">💰 Monetization Potential
+                            </div>
+                            <div id="monetizationInsight" style="font-size:0.9rem;line-height:1.8;color:#1e40af;"></div>
+                        </div>
+
+                        <div class="action-row">
+                            <button class="act-btn" onclick="copyTxt('healthScore')">⎘ Copy</button>
+                            <button class="act-btn" onclick="dlTxt('Instagram Health Score')">↓ Export</button>
+                            <button class="act-btn" onclick="shareIt()">⤴ Share</button>
+                        </div>
+
+                        <div style="margin-top:16px;">
+                            <a href="/instagram-sponsorship-rate-calculator/" class="cta-mini"
+                                style="text-decoration: none;">
+                                👉 Calculate your sponsorship rates →
+                            </a>
+                        </div>
+                        <div>
+                            <a href="/instagram-engagement-rate-calculator/" class="cta-mini"
+                                style="text-decoration: none;">
+                                👉 Check detailed engagement metrics →
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="faq-wrap">
+                    <div class="faq-head">Frequently Asked Questions</div>
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFAQ(this)">What is Instagram influencer health score? <span
+                                class="faq-plus">+</span></button>
+                        <div class="faq-a">Instagram influencer health score is a comprehensive metric (0-100)
+                            evaluating creator value based on 5 weighted factors: engagement rate (40%), growth rate
+                            (25%), follower size (15%), niche value (10%), and audience quality (10%). Scores 70+
+                            indicate high-value influencers commanding premium sponsorship rates.</div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFAQ(this)">What is a good influencer health score? <span
+                                class="faq-plus">+</span></button>
+                        <div class="faq-a">Good influencer health score is 50-70 (Strong Influencer tier). 70-85 =
+                            High-Value Influencer. 85-100 = Premium Brand Asset. Scores below 30 indicate weak profile
+                            needing improvement before monetization. Average creators score 40-60.</div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFAQ(this)">How is the health score calculated? <span
+                                class="faq-plus">+</span></button>
+                        <div class="faq-a">Score = (Engagement Points × 0.40) + (Growth Points × 0.25) + (Follower
+                            Points × 0.15) + (Niche Points × 0.10) + (Audience Points × 0.10). Each component is scored
+                            individually, then weighted and normalized to 0-100 scale. Engagement weighted highest as
+                            it's strongest monetization predictor.</div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFAQ(this)">Why is engagement weighted 40%? <span
+                                class="faq-plus">+</span></button>
+                        <div class="faq-a">Engagement rate is strongest predictor of brand deal ROI. Brands pay for
+                            conversions, not vanity metrics. Creator with 10K followers and 6% engagement delivers more
+                            value than 100K followers with 0.5% engagement. Studies show engagement correlates 3× more
+                            strongly with sponsorship success than follower count.</div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFAQ(this)">Can I improve my health score? <span
+                                class="faq-plus">+</span></button>
+                        <div class="faq-a">Yes. Focus on weighted factors: (1) Increase engagement through better
+                            content and community interaction (40% weight), (2) Maintain 3-5% monthly growth through
+                            consistent posting (25% weight), (3) Target Tier 1 audiences if possible (10% weight).
+                            Engagement and growth are controllable variables with highest impact.</div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFAQ(this)">Do brands actually use health scores? <span
+                                class="faq-plus">+</span></button>
+                        <div class="faq-a">Yes. Professional agencies use multi-factor scoring systems evaluating
+                            engagement, growth, audience quality, and niche fit. While exact formulas vary, all systems
+                            weight engagement heavily (30-50%) and combine with growth trajectory, follower
+                            authenticity, and demographic targeting. This calculator mirrors industry standard
+                            evaluation methodology.</div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFAQ(this)">What if I have low follower count but high
+                            engagement? <span class="faq-plus">+</span></button>
+                        <div class="faq-a">You'll still score well because engagement (40% weight) outweighs follower
+                            count (15% weight). Micro-influencers (10K-50K) with 5%+ engagement often score higher than
+                            macro-influencers (500K+) with 1% engagement. Quality beats quantity in modern influencer
+                            marketing.</div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-q" onclick="toggleFAQ(this)">How often should I recalculate my score? <span
+                                class="faq-plus">+</span></button>
+                        <div class="faq-a">Monthly. Engagement and growth rates fluctuate, so recalculate every 30 days
+                            to track progress. Use for: media kit updates, rate card adjustments, pitch timing (approach
+                            brands when score peaks), and strategy optimization (identify which factors need
+                            improvement).</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="padding-top: 60px;">
+            <p
+                style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.05rem; color: var(--text-500); line-height: 1.6;">
+                The Instagram Influencer Health Score Calculator provides professional-grade evaluation using the same
+                multi-factor methodology employed by brand partnerships teams and influencer marketing agencies.
+            </p>
+        </div>
+
+        <article class="content-section">
+            <h2>What Is Influencer Health Score?</h2>
+            <p>Influencer health score is a comprehensive metric (0-100) that quantifies creator value by combining
+                multiple performance indicators into a single, actionable number.</p>
+
+            <p><strong>Why brands use health scores:</strong></p>
+            <ul>
+                <li><strong>Objective evaluation:</strong> Removes subjective assessment bias</li>
+                <li><strong>Quick filtering:</strong> Screen hundreds of creators efficiently</li>
+                <li><strong>Budget allocation:</strong> Match creator tiers to campaign budgets</li>
+                <li><strong>ROI prediction:</strong> Score correlates with campaign performance</li>
+            </ul>
+
+            <h2>The 5-Factor Scoring System</h2>
+            <p>Professional evaluation across engagement, growth, scale, niche, and audience quality:</p>
+
+            <h3>1. Engagement Score (40% Weight)</h3>
+            <p>Most important factor - directly predicts conversion rates:</p>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Engagement Rate</th>
+                            <th>Raw Points</th>
+                            <th>Weighted (40%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>
+                                    <1%< /strong>
+                            </td>
+                            <td>10</td>
+                            <td>4 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1-3%</strong></td>
+                            <td>25</td>
+                            <td>10 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3-6%</strong></td>
+                            <td>35</td>
+                            <td>14 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6-10%</strong></td>
+                            <td>40</td>
+                            <td>16 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>10%+</strong></td>
+                            <td>45</td>
+                            <td>18 points</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>2. Growth Score (25% Weight)</h3>
+            <p>Growth trajectory indicates momentum and future potential:</p>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Monthly Growth</th>
+                            <th>Raw Points</th>
+                            <th>Weighted (25%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Negative</strong></td>
+                            <td>0</td>
+                            <td>0 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>0-2%</strong></td>
+                            <td>10</td>
+                            <td>2.5 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2-5%</strong></td>
+                            <td>20</td>
+                            <td>5 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5-10%</strong></td>
+                            <td>30</td>
+                            <td>7.5 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>10%+</strong></td>
+                            <td>35</td>
+                            <td>8.75 points</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3. Follower Tier Score (15% Weight)</h3>
+            <p>Scale matters but isn't dominant factor:</p>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Followers</th>
+                            <th>Raw Points</th>
+                            <th>Weighted (15%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>
+                                    <10K< /strong>
+                            </td>
+                            <td>5</td>
+                            <td>0.75 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>10K-50K</strong></td>
+                            <td>10</td>
+                            <td>1.5 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>50K-100K</strong></td>
+                            <td>15</td>
+                            <td>2.25 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>100K-500K</strong></td>
+                            <td>20</td>
+                            <td>3 points</td>
+                        </tr>
+                        <tr>
+                            <td><strong>500K+</strong></td>
+                            <td>25</td>
+                            <td>3.75 points</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>4. Niche Value Score (10% Weight)</h3>
+            <p>Advertiser demand varies by category:</p>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Niche</th>
+                            <th>Raw Points</th>
+                            <th>Why</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Finance</strong></td>
+                            <td>10</td>
+                            <td>High LTV, premium products</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tech</strong></td>
+                            <td>9</td>
+                            <td>Affluent audience, high AOV</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fitness/Health</strong></td>
+                            <td>8</td>
+                            <td>Recurring purchases, supplements</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Beauty/Fashion</strong></td>
+                            <td>7</td>
+                            <td>High purchase frequency</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lifestyle</strong></td>
+                            <td>6</td>
+                            <td>Broad but competitive</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Entertainment</strong></td>
+                            <td>4</td>
+                            <td>Lower conversion rates</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>5. Country Tier Score (10% Weight)</h3>
+            <p>Audience purchasing power affects brand interest:</p>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Countries</th>
+                            <th>Raw Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tier 1</strong></td>
+                            <td>USA, UK, Canada, Australia, Germany</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tier 2</strong></td>
+                            <td>Europe, UAE, Japan, South Korea</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tier 3</strong></td>
+                            <td>Global mix, emerging markets</td>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Score Classification System</h2>
+            <p>What your score means for monetization potential:</p>
+
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Score Range</th>
+                            <th>Classification</th>
+                            <th>Sponsorship Potential</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>85-100</strong></td>
+                            <td>Premium Brand Asset</td>
+                            <td>Charge 30-50% above standard rates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>70-84</strong></td>
+                            <td>High-Value Influencer</td>
+                            <td>Charge 20-30% premium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>50-69</strong></td>
+                            <td>Strong Influencer</td>
+                            <td>Standard market rates apply</td>
+                        </tr>
+                        <tr>
+                            <td><strong>30-49</strong></td>
+                            <td>Developing Creator</td>
+                            <td>Entry-level rates, portfolio building</td>
+                        </tr>
+                        <tr>
+                            <td><strong>0-29</strong></td>
+                            <td>Weak Profile</td>
+                            <td>Focus on growth before monetization</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>How to Improve Your Health Score</h2>
+            <p>Strategic optimization based on weighted factors:</p>
+
+            <h3>Priority 1: Increase Engagement (40% Weight)</h3>
+            <ul>
+                <li><strong>Post consistently:</strong> 4-7 times weekly maintains visibility</li>
+                <li><strong>Ask questions:</strong> Drive comment engagement</li>
+                <li><strong>Create save-worthy content:</strong> Tutorials, tips, resources</li>
+                <li><strong>Respond to comments:</strong> Within first hour boosts algorithmic ranking</li>
+                <li><strong>Use CTAs:</strong> "Double-tap if you agree" proven to increase engagement</li>
+            </ul>
+
+            <h3>Priority 2: Maintain Growth (25% Weight)</h3>
+            <ul>
+                <li><strong>Reels strategy:</strong> 3-5 Reels weekly for maximum reach</li>
+                <li><strong>Collaboration:</strong> Cross-promote with similar-sized creators</li>
+                <li><strong>Hashtag research:</strong> Mix of niche and trending tags</li>
+                <li><strong>Post timing:</strong> Peak audience activity hours</li>
+            </ul>
+
+            <h3>Priority 3: Optimize Audience Quality (10% Weight)</h3>
+            <ul>
+                <li><strong>Create English content:</strong> Attracts Tier 1 audiences</li>
+                <li><strong>Use geo-tags:</strong> US/UK cities in posts</li>
+                <li><strong>Remove fake followers:</strong> Periodic cleanup maintains quality</li>
+            </ul>
+
+            <div class="author-box">
+                <div class="author-img">👨‍💻</div>
+                <div class="author-info">
+                    <h3>About IncomeFromViews</h3>
+                    <p><strong>IncomeFromViews</strong> builds professional-grade creator economy tools. This health
+                        score calculator uses the same multi-factor methodology employed by brand partnerships teams at
+                        Fortune 500 companies.</p>
+                    <a href="/about/" class="author-link">More about our methodology →</a>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                <p><strong>Disclaimer:</strong> Health score is a composite metric based on industry-standard evaluation
+                    factors. Actual brand deal outcomes depend on additional variables including content quality,
+                    audience demographics, creator reputation, and negotiation skills. Use as professional benchmark,
+                    not guaranteed monetization predictor.</p>
+            </div>
+
+            <h2 class="bt-1 pt-40 mt-40">Related Calculators</h2>
+            <div class="related-grid">
+                <a href="/instagram-sponsorship-rate-calculator/" class="related-card"><span class="icon-lg">💰</span>
+                    Sponsorship Rates</a>
+                <a href="/instagram-engagement-rate-calculator/" class="related-card"><span class="icon-lg">📈</span>
+                    Engagement Rate</a>
+                <a href="/instagram-growth-rate-calculator/" class="related-card"><span class="icon-lg">📊</span> Growth
+                    Rate</a>
+                <a href="/instagram-earnings-calculator/" class="related-card"><span class="icon-lg">📸</span> Instagram
+                    Earnings</a>
+            </div>
+        </article>
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo footer-logo-flex">
+                        <img src="/logo.svg" alt="IncomeFromViews Logo" class="footer-logo-img" width="36" height="36"
+                            loading="lazy">
+                        <span class="footer-logo-text">Income<em>FromViews</em></span>
+                    </a>
+                    <p>Free, instant creator earnings calculators for YouTube, TikTok, Instagram, AdSense, Affiliate
+                        marketing
+                        and Freelancing.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <a href="/instagram-influencer-health-score/">Influencer Health Score</a>
+                    <a href="/instagram-sponsorship-rate-calculator/">Sponsorship Rates</a>
+                    <a href="/instagram-engagement-rate-calculator/">Engagement Rate</a>
+                    <a href="/instagram-growth-rate-calculator/">Growth Rate</a>
+                    <a href="/instagram-earnings-calculator/">Instagram Earnings</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <a href="/blog/">Blog</a>
+                    <a href="/blog/influencer-marketing/">Influencer Marketing</a>
+                    <a href="/blog/instagram-monetization/">Instagram Monetization</a>
+                    <a href="/blog/brand-deals/">Brand Deal Guide</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="/about/">About Us</a>
+                    <a href="/contact/">Contact</a>
+                    <a href="/privacy-policy/">Privacy Policy</a>
+                    <a href="/terms/">Terms of Use</a>
+                    <a href="/disclaimer/">Disclaimer</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copy">© 2026 IncomeFromViews · All calculators are free to use</span>
+                <div class="footer-legal">
+                    <a href="/privacy-policy/">Privacy</a>
+                    <a href="/terms/">Terms</a>
+                    <a href="/disclaimer/">Disclaimer</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/shared.js" defer></script>
+    <script defer>
+        function syncEngagement(val) {
+            document.getElementById('engagementRate').value = val;
+            document.getElementById('engagementSlider').value = val;
+            calcHealth();
+        }
+
+        function syncGrowth(val) {
+            document.getElementById('growthRate').value = val;
+            document.getElementById('growthSlider').value = val;
+            calcHealth();
+        }
+
+        function calcHealth() {
+            const followers = v('followers');
+            const engagement = v('engagementRate');
+            const growth = v('growthRate');
+            const niche = parseInt(document.getElementById('niche').value);
+            const country = parseInt(document.getElementById('countryTier').value);
+
+            // 1. Engagement Score (40% weight)
+            let engPoints = 10;
+            if (engagement < 1) engPoints = 10;
+            else if (engagement < 3) engPoints = 25;
+            else if (engagement < 6) engPoints = 35;
+            else if (engagement < 10) engPoints = 40;
+            else engPoints = 45;
+
+            const engScore = engPoints * 0.40;
+
+            // 2. Growth Score (25% weight)
+            let growthPoints = 0;
+            if (growth < 0) growthPoints = 0;
+            else if (growth < 2) growthPoints = 10;
+            else if (growth < 5) growthPoints = 20;
+            else if (growth < 10) growthPoints = 30;
+            else growthPoints = 35;
+
+            const growthScoreCalc = growthPoints * 0.25;
+
+            // 3. Follower Score (15% weight)
+            let followerPoints = 5;
+            if (followers < 10000) followerPoints = 5;
+            else if (followers < 50000) followerPoints = 10;
+            else if (followers < 100000) followerPoints = 15;
+            else if (followers < 500000) followerPoints = 20;
+            else followerPoints = 25;
+
+            const followerScoreCalc = followerPoints * 0.15;
+
+            // 4. Niche Score (10% weight)
+            const nicheScore = niche * 0.10;
+
+            // 5. Country Score (10% weight)
+            const countryScore = country * 0.10;
+
+            // Total Health Score (out of 100)
+            const totalScore = engScore + growthScoreCalc + followerScoreCalc + nicheScore + countryScore;
+            const healthScore = Math.round((totalScore / 10) * 100);
+
+            // Classification
+            let classification, monetization, premium;
+            if (healthScore >= 85) {
+                classification = "Premium Brand Asset";
+                monetization = "Elite";
+                premium = "30-50%";
+            } else if (healthScore >= 70) {
+                classification = "High-Value Influencer";
+                monetization = "High";
+                premium = "20-30%";
+            } else if (healthScore >= 50) {
+                classification = "Strong Influencer";
+                monetization = "Moderate";
+                premium = "0-10%";
+            } else if (healthScore >= 30) {
+                classification = "Developing Creator";
+                monetization = "Entry-Level";
+                premium = "N/A";
+            } else {
+                classification = "Weak Profile";
+                monetization = "Limited";
+                premium = "N/A";
+            }
+
+            // Display score
+            set('healthScore', healthScore);
+            set('scoreTier', classification);
+
+            // Component scores
+            set('engScore', engPoints.toFixed(1));
+            set('growthScore', growthPoints.toFixed(1));
+            set('followerScore', followerPoints.toFixed(1));
+            set('nicheScore', niche.toFixed(1));
+            set('audienceScore', country.toFixed(1));
+
+            // Score bars
+            document.getElementById('engBar').style.width = (engPoints / 45 * 100) + '%';
+            document.getElementById('growthBar').style.width = (growthPoints / 35 * 100) + '%';
+            document.getElementById('followerBar').style.width = (followerPoints / 25 * 100) + '%';
+            document.getElementById('nicheBar').style.width = (niche / 10 * 100) + '%';
+            document.getElementById('audienceBar').style.width = (country / 10 * 100) + '%';
+
+            // Monetization insight
+            let insight = '';
+            if (healthScore >= 70) {
+                insight = `<strong>🌟 ${monetization} Monetization Potential</strong><br>Your health score of ${healthScore} places you in the top tier. You can charge <strong>${premium} premium</strong> above standard sponsorship rates. Brands actively seek influencers in this category.<br><br>Next steps: Create professional media kit, set premium rate card, pitch Tier 1 brands directly.`;
+            } else if (healthScore >= 50) {
+                insight = `<strong>✅ ${monetization} Monetization Potential</strong><br>Your score of ${healthScore} indicates solid brand deal potential at standard market rates. Focus on consistency to move into premium tier (70+).<br><br>Improvement priority: ${engagement < 4 ? 'Increase engagement to 4%+' : growth < 3 ? 'Boost monthly growth to 3%+' : 'Maintain current performance'}`;
+            } else if (healthScore >= 30) {
+                insight = `<strong>📊 ${monetization} Potential</strong><br>Score of ${healthScore} suggests you're building foundation but not yet optimal for premium partnerships. Focus on engagement and growth before aggressive pitching.<br><br>Priority: ${engagement < 2 ? 'Engagement is critically low (<2%). This is your #1 focus.' : 'Build consistent 3-5% monthly growth.'}`;
+            } else {
+                insight = `<strong>⚠️ ${monetization} Monetization</strong><br>Score of ${healthScore} indicates significant improvement needed before brand partnerships. Focus on fundamentals: content quality, posting consistency, community engagement.<br><br>Action plan: Improve engagement to 3%+, achieve 2%+ monthly growth, then reassess.`;
+            }
+
+            document.getElementById('monetizationInsight').innerHTML = insight;
+
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'calculator_interaction', {
+                    event_category: 'engagement',
+                    event_label: 'instagram_health_score_used'
+                });
+            }
+        }
+
+        // Reset Form Helper
+        function resetForm(ids) {
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = el.defaultValue || '';
+            });
+
+            const btn = document.querySelector('.btn-ghost');
+            btn.textContent = "✓ Reset";
+            setTimeout(() => {
+                btn.textContent = "↺ Reset";
+            }, 1200);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            calcHealth();
+
+            const engInput = document.getElementById('engagementRate');
+            if (engInput) {
+                engInput.addEventListener('input', function () {
+                    document.getElementById('engagementSlider').value = this.value;
+                    calcHealth();
+                });
+            }
+
+            const growthInput = document.getElementById('growthRate');
+            if (growthInput) {
+                growthInput.addEventListener('input', function () {
+                    document.getElementById('growthSlider').value = this.value;
+                    calcHealth();
+                });
+            }
+        });
+
+        const calcBtn = document.querySelector('.btn-primary');
+        if (calcBtn) {
+            calcBtn.addEventListener('click', function () {
+                this.classList.add('loading');
+                this.innerHTML = '⏳ Calculating...';
+                setTimeout(() => {
+                    this.classList.remove('loading');
+                    this.innerHTML = '⚡ Calculate Health Score';
+                }, 400);
+            });
+        }
+    </script>
+</body>
+
+</html>

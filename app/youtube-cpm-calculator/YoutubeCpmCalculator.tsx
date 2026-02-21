@@ -1,39 +1,66 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { fmt } from "../lib/format";
 import Link from "next/link";
+import { youtubeCountries } from "../../data/youtubeCountries";
+import { youtubeNiches } from "../../data/youtubeNiches";
+import SearchableSelect from "../components/SearchableSelect";
+import type { SelectOption } from "../components/SearchableSelect";
 
-const US_DATA = [
-    { name: 'Finance', defaultVal: 35, color: '#22c55e', id: 'finance' },
-    { name: 'Business', defaultVal: 28, color: '#22c55e', id: 'business' },
-    { name: 'Tech', defaultVal: 18, color: '#22c55e', id: 'tech' },
-    { name: 'Health', defaultVal: 12, color: '#f97316', id: 'health' },
-    { name: 'Travel', defaultVal: 9, color: '#f97316', id: 'travel' },
-    { name: 'Beauty', defaultVal: 6, color: '#f97316', id: 'beauty' },
-    { name: 'Gaming', defaultVal: 6, color: '#f97316', id: 'gaming' },
-    { name: 'Lifestyle', defaultVal: 4, color: '#9ca3af', id: 'lifestyle' },
-    { name: 'Entertain', defaultVal: 3, color: '#9ca3af', id: 'entertainment' },
-];
-
-export default function YoutubeCpmCalculator() {
+export default function YoutubeCpmCalculator({
+    initialCountrySlug = "us",
+    initialCountryMulti = 3.2,
+    initialNicheSlug = "gaming",
+}: {
+    initialCountrySlug?: string;
+    initialCountryMulti?: number;
+    initialNicheSlug?: string;
+} = {}) {
     const [earn, setEarn] = useState(500);
     const [views, setViews] = useState(50000);
-    const [niche, setNiche] = useState("gaming");
-    const [countryMulti, setCountryMulti] = useState(3.2); // Default is US
+    const [nicheSlug, setNicheSlug] = useState(initialNicheSlug);
+    const [countrySlug, setCountrySlug] = useState(initialCountrySlug);
+    const [countryMulti, setCountryMulti] = useState(initialCountryMulti);
     const [isCalculating, setIsCalculating] = useState(false);
     const [copied, setCopied] = useState(false);
     const [isResetting, setIsResetting] = useState(false);
 
-    // Animation state for bars
     const [animateBars, setAnimateBars] = useState(false);
+    const [showAllNiches, setShowAllNiches] = useState(false);
 
     useEffect(() => {
-        // trigger animation whenever dependencies change
+        setCountrySlug(initialCountrySlug);
+        setCountryMulti(initialCountryMulti);
+    }, [initialCountrySlug, initialCountryMulti]);
+
+    useEffect(() => {
+        setNicheSlug(initialNicheSlug);
+    }, [initialNicheSlug]);
+
+    useEffect(() => {
         setAnimateBars(false);
         const timer = setTimeout(() => setAnimateBars(true), 50);
         return () => clearTimeout(timer);
-    }, [earn, views, niche, countryMulti]);
+    }, [earn, views, nicheSlug, countryMulti]);
+
+    const countryOptions: SelectOption[] = useMemo(
+        () => youtubeCountries.map(c => ({
+            value: c.slug,
+            label: `${c.flag} ${c.name} (×${c.multiplier})`,
+            searchText: c.name,
+        })),
+        []
+    );
+
+    const nicheOptions: SelectOption[] = useMemo(
+        () => youtubeNiches.map(n => ({
+            value: n.slug,
+            label: `${n.name} ($${n.cpm} CPM)`,
+            searchText: n.name,
+        })),
+        []
+    );
 
     let cpm = 0;
     if (earn > 0 && views > 0) {
@@ -54,8 +81,9 @@ export default function YoutubeCpmCalculator() {
         setIsResetting(true);
         setEarn(500);
         setViews(50000);
-        setNiche("gaming");
-        setCountryMulti(3.2);
+        setNicheSlug(initialNicheSlug);
+        setCountrySlug(initialCountrySlug);
+        setCountryMulti(initialCountryMulti);
         handleCalculate();
         setTimeout(() => setIsResetting(false), 800);
     };
@@ -99,44 +127,38 @@ export default function YoutubeCpmCalculator() {
                     </div>
                     <div className="form-group">
                         <label>Your Niche</label>
-                        <select value={niche} onChange={(e) => setNiche(e.target.value)}>
-                            <option value="finance">💰 Finance / Investing</option>
-                            <option value="tech">💻 Technology</option>
-                            <option value="business">🏢 Business / Marketing</option>
-                            <option value="health">🏥 Health / Fitness</option>
-                            <option value="education">📚 Education</option>
-                            <option value="gaming">🎮 Gaming</option>
-                            <option value="entertainment">🎭 Entertainment</option>
-                            <option value="lifestyle">✨ Lifestyle / Vlogs</option>
-                            <option value="beauty">💄 Beauty / Fashion</option>
-                            <option value="travel">✈️ Travel</option>
-                        </select>
+                        <SearchableSelect
+                            options={nicheOptions}
+                            value={nicheSlug}
+                            onChange={(slug) => {
+                                setNicheSlug(slug);
+                            }}
+                            placeholder="Select niche…"
+                        />
                     </div>
                     <div className="form-group">
                         <label>Audience Country</label>
-                        <select value={countryMulti} onChange={(e) => setCountryMulti(Number(e.target.value))}>
-                            <option value="1">🌍 Global Average (&times;1.0)</option>
-                            <option value="3.2">🇺🇸 United States (&times;3.2)</option>
-                            <option value="2.8">🇬🇧 United Kingdom (&times;2.8)</option>
-                            <option value="2.5">🇦🇺 Australia (&times;2.5)</option>
-                            <option value="2.1">🇨🇦 Canada (&times;2.1)</option>
-                            <option value="1.8">🇩🇪 Germany (&times;1.8)</option>
-                            <option value="1.5">🇫🇷 France (&times;1.5)</option>
-                            <option value="0.4">🇮🇳 India (&times;0.4)</option>
-                            <option value="0.35">🇵🇰 Pakistan (&times;0.35)</option>
-                            <option value="0.3">🇧🇩 Bangladesh (&times;0.3)</option>
-                            <option value="0.5">🇧🇷 Brazil (&times;0.5)</option>
-                            <option value="0.55">🇵🇭 Philippines (&times;0.55)</option>
-                            <option value="0.45">🇳🇬 Nigeria (&times;0.45)</option>
-                        </select>
+                        <SearchableSelect
+                            options={countryOptions}
+                            value={countrySlug}
+                            onChange={(slug) => {
+                                setCountrySlug(slug);
+                                const match = youtubeCountries.find(c => c.slug === slug);
+                                if (match) setCountryMulti(match.multiplier);
+                            }}
+                            placeholder="Select country…"
+                        />
                     </div>
                     <p className="auto-note">💡 Adjust values &mdash; results update automatically.</p>
-                    <button className={`btn-primary ${isCalculating ? 'loading' : ''}`} onClick={handleCalculate}>
-                        {isCalculating ? '⏳ Calculating...' : '⚡ Calculate CPM'}
-                    </button>
-                    <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
-                        {isResetting ? '✓ Reset' : '↺ Reset'}
-                    </button>
+
+                    <div className="calc-action-row">
+                        <button className={`btn-primary ${isCalculating ? 'loading' : ''}`} onClick={handleCalculate}>
+                            {isCalculating ? '⏳ Calculating...' : '⚡ Calculate CPM'}
+                        </button>
+                        <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
+                            {isResetting ? '✓ Reset' : '↺ Reset'}
+                        </button>
+                    </div>
 
                     <div style={{ marginTop: 16 }}>
                         <Link href="/youtube-earnings-calculator/" className="cta-mini" style={{ textDecoration: "none" }}>
@@ -158,34 +180,64 @@ export default function YoutubeCpmCalculator() {
                             Niche CPM Comparison
                         </div>
                         <div id="cpmBars">
-                            {US_DATA.map((item) => {
-                                const localVal = item.defaultVal * scale;
-                                const isSelected = item.id === niche;
-                                const borderStyle = isSelected ? "2px solid var(--blue)" : "none";
-                                const padding = isSelected ? "2px" : "0";
-                                const borderRadius = isSelected ? "6px" : "0";
-                                const nameColor = isSelected ? "var(--blue)" : "inherit";
-                                const nameWeight = isSelected ? 800 : "normal";
-                                const barWidth = animateBars ? `${(item.defaultVal / 35) * 100}%` : "0";
+                            {(() => {
+                                const sorted = [...youtubeNiches].sort((a, b) => b.cpm - a.cpm);
+                                const maxCpm = sorted[0]?.cpm || 1;
+                                const visible = showAllNiches ? sorted : sorted.slice(0, 5);
 
-                                return (
-                                    <div className="bar-row" style={{ border: borderStyle, padding, borderRadius }} key={item.id}>
-                                        <div className="bar-name" style={{ color: nameColor, fontWeight: nameWeight }}>{item.name}</div>
-                                        <div className="bar-track">
-                                            <div
-                                                className="bar-fill"
-                                                style={{
-                                                    width: barWidth,
-                                                    background: item.color,
-                                                    transition: "width 0.5s ease-out"
-                                                }}
-                                            />
+                                return visible.map((item) => {
+                                    const localVal = item.cpm * scale;
+                                    const isSelected = item.slug === nicheSlug;
+                                    const borderStyle = isSelected ? "2px solid var(--blue)" : "none";
+                                    const padding = isSelected ? "2px" : "0";
+                                    const borderRadius = isSelected ? "6px" : "0";
+                                    const nameColor = isSelected ? "var(--blue)" : "inherit";
+                                    const nameWeight = isSelected ? 800 : "normal";
+                                    const barColor = item.cpm >= 10 ? '#22c55e' : item.cpm >= 5 ? '#f97316' : '#9ca3af';
+                                    const barWidth = animateBars ? `${(item.cpm / maxCpm) * 100}%` : "0";
+
+                                    return (
+                                        <div className="bar-row" style={{ border: borderStyle, padding, borderRadius }} key={item.slug}>
+                                            <div className="bar-name" style={{ color: nameColor, fontWeight: nameWeight }}>{item.name}</div>
+                                            <div className="bar-track">
+                                                <div
+                                                    className="bar-fill"
+                                                    style={{
+                                                        width: barWidth,
+                                                        background: barColor,
+                                                        transition: "width 0.5s ease-out"
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className="bar-num">${localVal.toFixed(2)}</div>
                                         </div>
-                                        <div className="bar-num">${localVal.toFixed(2)}</div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                });
+                            })()}
                         </div>
+                        {youtubeNiches.length > 5 && (
+                            <button
+                                onClick={() => setShowAllNiches(!showAllNiches)}
+                                style={{
+                                    display: "block",
+                                    width: "100%",
+                                    marginTop: 8,
+                                    padding: "6px 0",
+                                    background: "none",
+                                    border: "1px solid var(--border)",
+                                    borderRadius: 6,
+                                    color: "var(--blue)",
+                                    fontSize: "0.8rem",
+                                    fontWeight: 600,
+                                    cursor: "pointer",
+                                    transition: "background 0.2s",
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-100)")}
+                                onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                            >
+                                {showAllNiches ? "▲ Show Less" : `▼ See All ${youtubeNiches.length} Niches`}
+                            </button>
+                        )}
                     </div>
 
                     <div className="action-row mt-16">

@@ -11,7 +11,9 @@ export interface CountryData {
     advertiserDemand: string;
     competitionLevel: string;
     taxNote?: string;
-    active: boolean;
+    activeEarnings: boolean;
+    activeCpm: boolean;
+    activeShorts: boolean;
 }
 
 export const youtubeCountries: CountryData[] = [
@@ -27,7 +29,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 2.2,
         advertiserDemand: "Moderate",
         competitionLevel: "High",
-        active: true,
+        activeEarnings: true,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "us",
@@ -42,7 +46,9 @@ export const youtubeCountries: CountryData[] = [
         advertiserDemand: "Extremely High",
         competitionLevel: "Very High",
         taxNote: "US creators must submit W-9 tax info; non-US creators face up to 30% withholding on earnings generated from US viewers.",
-        active: true,
+        activeEarnings: true,
+        activeCpm: true,
+        activeShorts: true,
     },
     {
         slug: "uk",
@@ -56,7 +62,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 5.5,
         advertiserDemand: "Very High",
         competitionLevel: "High",
-        active: true,
+        activeEarnings: true,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "australia",
@@ -70,7 +78,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 4.8,
         advertiserDemand: "High",
         competitionLevel: "Medium",
-        active: true,
+        activeEarnings: true,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "canada",
@@ -84,7 +94,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 4.5,
         advertiserDemand: "High",
         competitionLevel: "Medium",
-        active: true,
+        activeEarnings: true,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "germany",
@@ -98,7 +110,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 4.1,
         advertiserDemand: "High",
         competitionLevel: "Medium",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "france",
@@ -112,7 +126,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 3.7,
         advertiserDemand: "Medium-High",
         competitionLevel: "Medium",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "japan",
@@ -126,7 +142,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 3.4,
         advertiserDemand: "Medium",
         competitionLevel: "High",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "brazil",
@@ -141,7 +159,9 @@ export const youtubeCountries: CountryData[] = [
         advertiserDemand: "Growing",
         competitionLevel: "High",
         taxNote: "Local withholding taxes may apply before payout depending on creator residency.",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "mexico",
@@ -155,7 +175,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 1.3,
         advertiserDemand: "Growing",
         competitionLevel: "High",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "india",
@@ -170,7 +192,9 @@ export const youtubeCountries: CountryData[] = [
         advertiserDemand: "Emerging",
         competitionLevel: "Very High",
         taxNote: "Indian creators are subject to local TDS and GST regulations on AdSense revenue.",
-        active: true,
+        activeEarnings: true,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "philippines",
@@ -184,7 +208,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 0.65,
         advertiserDemand: "Stable",
         competitionLevel: "High",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "pakistan",
@@ -198,7 +224,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 0.45,
         advertiserDemand: "Emerging",
         competitionLevel: "High",
-        active: false,
+        activeEarnings: true,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "bangladesh",
@@ -212,7 +240,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 0.4,
         advertiserDemand: "Emerging",
         competitionLevel: "High",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "nigeria",
@@ -226,7 +256,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 0.55,
         advertiserDemand: "Growing",
         competitionLevel: "Medium",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "uae",
@@ -240,7 +272,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 5.2,
         advertiserDemand: "Very High",
         competitionLevel: "Medium",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "singapore",
@@ -254,7 +288,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 5.8,
         advertiserDemand: "Extremely High",
         competitionLevel: "Medium",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "netherlands",
@@ -268,7 +304,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 4.3,
         advertiserDemand: "High",
         competitionLevel: "Medium",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "sweden",
@@ -282,7 +320,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 4.6,
         advertiserDemand: "High",
         competitionLevel: "Low",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "norway",
@@ -296,7 +336,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 4.9,
         advertiserDemand: "High",
         competitionLevel: "Low",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "south-africa",
@@ -310,7 +352,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 1.9,
         advertiserDemand: "Growing",
         competitionLevel: "Medium",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "indonesia",
@@ -324,7 +368,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 0.5,
         advertiserDemand: "Emerging",
         competitionLevel: "Very High",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "vietnam",
@@ -338,7 +384,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 0.45,
         advertiserDemand: "Emerging",
         competitionLevel: "High",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "turkey",
@@ -352,7 +400,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 1.7,
         advertiserDemand: "Growing",
         competitionLevel: "High",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
     {
         slug: "saudi-arabia",
@@ -366,7 +416,9 @@ export const youtubeCountries: CountryData[] = [
         avgRpmMid: 5.0,
         advertiserDemand: "High",
         competitionLevel: "Medium",
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
+        activeShorts: false,
     },
 
 ];

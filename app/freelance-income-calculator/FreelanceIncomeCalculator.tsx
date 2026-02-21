@@ -158,12 +158,14 @@ export default function FreelanceIncomeCalculator() {
               💡 Adjust values — results update automatically.
             </p>
 
-            <button className={`btn-primary ${isLoading ? 'loading' : ''}`} onClick={handleCalculate}>
-              {isLoading ? '⏳ Calculating...' : '⚡ Calculate Net Income'}
-            </button>
-            <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
-              {isResetting ? '✓ Reset' : '↺ Reset'}
-            </button>
+            <div className="calc-action-row">
+              <button className={`btn-primary ${isLoading ? 'loading' : ''}`} onClick={handleCalculate}>
+                {isLoading ? '⏳ Calculating...' : '⚡ Calculate Net Income'}
+              </button>
+              <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
+                {isResetting ? '✓ Reset' : '↺ Reset'}
+              </button>
+            </div>
 
             <div className="notice" style={{ marginTop: '14px' }}>
               <span className="notice-icon">⚠️</span>

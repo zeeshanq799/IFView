@@ -123,12 +123,14 @@ export default function AffiliateEarningsCalculator() {
               💡 Adjust values — results update automatically.
             </p>
 
-            <button className={`btn-primary ${isLoading ? 'loading' : ''}`} onClick={handleCalculate}>
-              {isLoading ? '⏳ Calculating...' : '⚡ Calculate Affiliate Income'}
-            </button>
-            <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
-              {isResetting ? '✓ Reset' : '↺ Reset'}
-            </button>
+            <div className="calc-action-row">
+              <button className={`btn-primary ${isLoading ? 'loading' : ''}`} onClick={handleCalculate}>
+                {isLoading ? '⏳ Calculating...' : '⚡ Calculate Affiliate Income'}
+              </button>
+              <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
+                {isResetting ? '✓ Reset' : '↺ Reset'}
+              </button>
+            </div>
 
             {isCalculated && (
               <>

@@ -1,31 +1,51 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { fmt, fmtN } from "../lib/format";
 import Link from "next/link";
+import { youtubeCountries } from "../../data/youtubeCountries";
+import SearchableSelect from "../components/SearchableSelect";
+import type { SelectOption } from "../components/SearchableSelect";
 
-export default function YoutubeShortsCalculator() {
+export default function YoutubeShortsCalculator({
+    initialCountrySlug = "global",
+    initialCountryMulti = 1,
+}: {
+    initialCountrySlug?: string;
+    initialCountryMulti?: number;
+} = {}) {
     const [mode, setMode] = useState<"r" | "v">("r");
 
-    // Tab r state
     const [shortsViews, setShortsViews] = useState(10000);
     const [shortsRPM, setShortsRPM] = useState(0.05);
     const [shortsMon, setShortsMon] = useState(45);
 
-    // Tab v state
     const [shortsViews2, setShortsViews2] = useState(10000);
     const [shortsCPM, setShortsCPM] = useState(0.10);
     const [shortsMon2, setShortsMon2] = useState(45);
 
-    // Common state
     const [shortsRatio, setShortsRatio] = useState(100);
-    const [shortsCountry, setShortsCountry] = useState(1);
+    const [countrySlug, setCountrySlug] = useState(initialCountrySlug);
+    const [shortsCountry, setShortsCountry] = useState(initialCountryMulti);
     const [shortsTax, setShortsTax] = useState(25);
     const [isCalculating, setIsCalculating] = useState(false);
     const [copied, setCopied] = useState(false);
     const [isResetting, setIsResetting] = useState(false);
 
-    // Calculations
+    useEffect(() => {
+        setCountrySlug(initialCountrySlug);
+        setShortsCountry(initialCountryMulti);
+    }, [initialCountrySlug, initialCountryMulti]);
+
+    const countryOptions: SelectOption[] = useMemo(
+        () => youtubeCountries.map(c => ({
+            value: c.slug,
+            label: `${c.flag} ${c.name} (×${c.multiplier})`,
+            searchText: c.name,
+        })),
+        []
+    );
+
     const cm = shortsCountry;
     const taxRate = shortsTax / 100;
     const sr = shortsRatio / 100;
@@ -43,7 +63,7 @@ export default function YoutubeShortsCalculator() {
     } else {
         const cpm = shortsCPM * cm;
         const monRate = shortsMon2 / 100;
-        const rpm = cpm * 0.55; // YouTube keeps 45% of gross Shorts ad revenue if it's based on CPM? Actually Shorts revenue is from the Creator Pool. The original code says `cpm * 0.55`.
+        const rpm = cpm * 0.55;
         daily = (shortsViews2 * monRate * rpm) / 1000;
         formulaStr = `Revenue = (${fmtN(shortsViews2)} × ${(monRate * 100).toFixed(0)}% × $${rpm.toFixed(3)}) / 1000`;
         basePer1M = shortsCPM * 0.55;
@@ -74,7 +94,8 @@ export default function YoutubeShortsCalculator() {
         setShortsCPM(0.10);
         setShortsMon2(45);
         setShortsRatio(100);
-        setShortsCountry(1);
+        setCountrySlug(initialCountrySlug);
+        setShortsCountry(initialCountryMulti);
         setShortsTax(25);
         handleCalculate();
         setTimeout(() => setIsResetting(false), 800);
@@ -114,7 +135,6 @@ export default function YoutubeShortsCalculator() {
         }
     };
 
-    // Generate Insights
     let insightMessage = '';
     if (monthly < 100) {
         insightMessage = 'Shorts alone generate minimal income. Consider using Shorts for growth while focusing on long-form content for revenue.';
@@ -126,8 +146,7 @@ export default function YoutubeShortsCalculator() {
         insightMessage = 'You\'re achieving high Shorts volume. Diversifying with sponsorships and affiliate marketing can multiply your total earnings beyond ad revenue.';
     }
 
-    // Generate Goals
-    const safeRpmForGoals = per1M || 0.05; // avoid div by zero
+    const safeRpmForGoals = per1M || 0.05;
     const need1k = Math.ceil((1000 / safeRpmForGoals) * 1000 / 30);
     const need5k = Math.ceil((5000 / safeRpmForGoals) * 1000 / 30);
 
@@ -194,23 +213,16 @@ export default function YoutubeShortsCalculator() {
 
                     <div className="form-group">
                         <label>Country / Audience</label>
-                        <select value={shortsCountry} onChange={e => setShortsCountry(Number(e.target.value))}>
-                            <option value="1">🌍 Global Average (&times;1.0)</option>
-                            <option value="1.5">🇺🇸 United States (&times;1.5)</option>
-                            <option value="1.4">🇬🇧 United Kingdom (&times;1.4)</option>
-                            <option value="1.3">🇦🇺 Australia (&times;1.3)</option>
-                            <option value="1.3">🇨🇦 Canada (&times;1.3)</option>
-                            <option value="1.2">🇩🇪 Germany (&times;1.2)</option>
-                            <option value="0.8">🇫🇷 France (&times;0.8)</option>
-                            <option value="0.7">🇯🇵 Japan (&times;0.7)</option>
-                            <option value="0.3">🇮🇳 India (&times;0.3)</option>
-                            <option value="0.3">🇵🇰 Pakistan (&times;0.3)</option>
-                            <option value="0.2">🇧🇩 Bangladesh (&times;0.2)</option>
-                            <option value="0.5">🇧🇷 Brazil (&times;0.5)</option>
-                            <option value="0.6">🇲🇽 Mexico (&times;0.6)</option>
-                            <option value="0.4">🇵🇭 Philippines (&times;0.4)</option>
-                            <option value="0.3">🇳🇬 Nigeria (&times;0.3)</option>
-                        </select>
+                        <SearchableSelect
+                            options={countryOptions}
+                            value={countrySlug}
+                            onChange={(slug) => {
+                                setCountrySlug(slug);
+                                const match = youtubeCountries.find(c => c.slug === slug);
+                                if (match) setShortsCountry(match.multiplier);
+                            }}
+                            placeholder="Select country…"
+                        />
                     </div>
 
                     <div className="range-group">
@@ -223,12 +235,14 @@ export default function YoutubeShortsCalculator() {
 
                     <p className="auto-note">💡 Adjust values &mdash; results update automatically.</p>
 
-                    <button className={`btn-primary ${isCalculating ? 'loading' : ''}`} onClick={handleCalculate}>
-                        {isCalculating ? '⏳ Calculating...' : '⚡ Calculate Earnings'}
-                    </button>
-                    <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
-                        {isResetting ? '✓ Reset' : '↺ Reset'}
-                    </button>
+                    <div className="calc-action-row">
+                        <button className={`btn-primary ${isCalculating ? 'loading' : ''}`} onClick={handleCalculate}>
+                            {isCalculating ? '⏳ Calculating...' : '⚡ Calculate Earnings'}
+                        </button>
+                        <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
+                            {isResetting ? '✓ Reset' : '↺ Reset'}
+                        </button>
+                    </div>
 
                     <div className="insight-box" style={{ marginTop: 20 }}>
                         <div style={{ fontWeight: 600, marginBottom: 8 }}>📊 Earnings Insight</div>
@@ -279,9 +293,9 @@ export default function YoutubeShortsCalculator() {
                     <div style={{ marginTop: 20 }}>
                         <div style={{ fontWeight: 600, marginBottom: 6 }}>🌍 Compare Audience Impact</div>
                         <div style={{ display: "flex" }}>
-                            <button onClick={() => setShortsCountry(1.5)} className="act-btn">USA</button>
-                            <button onClick={() => setShortsCountry(1.4)} className="act-btn">UK</button>
-                            <button onClick={() => setShortsCountry(0.3)} className="act-btn">India</button>
+                            <button onClick={() => { setCountrySlug("us"); setShortsCountry(1.5); }} className="act-btn">USA</button>
+                            <button onClick={() => { setCountrySlug("uk"); setShortsCountry(1.4); }} className="act-btn">UK</button>
+                            <button onClick={() => { setCountrySlug("india"); setShortsCountry(0.3); }} className="act-btn">India</button>
                         </div>
                     </div>
 

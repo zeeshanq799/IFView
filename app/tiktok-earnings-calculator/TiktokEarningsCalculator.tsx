@@ -164,12 +164,14 @@ export default function TiktokEarningsCalculator() {
             <p className="auto-note" style={{ marginTop: '10px' }}>
               💡 Adjust values — results update automatically.
             </p>
-            <button className={`btn-primary ${isLoading ? 'loading' : ''}`} onClick={handleCalculate}>
-              {isLoading ? '⏳ Calculating...' : '⚡ Calculate TikTok Earnings'}
-            </button>
-            <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
-              {isResetting ? '✓ Reset' : '↺ Reset'}
-            </button>
+            <div className="calc-action-row">
+              <button className={`btn-primary ${isLoading ? 'loading' : ''}`} onClick={handleCalculate}>
+                {isLoading ? '⏳ Calculating...' : '⚡ Calculate TikTok Earnings'}
+              </button>
+              <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
+                {isResetting ? '✓ Reset' : '↺ Reset'}
+              </button>
+            </div>
           </div>
           <div className="card-right">
             <div className="output-hero" style={{ background: 'linear-gradient(135deg,#00B4D8,#EE1D52)' }}>

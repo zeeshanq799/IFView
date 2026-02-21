@@ -62,16 +62,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     push("/terms/", "yearly", 0.3);
     push("/disclaimer/", "yearly", 0.3);
 
-    youtubeCountries
-        .filter((c) => c.active)
-        .forEach((c) =>
-            push(`/youtube-earnings-calculator/${c.slug}/`, "weekly", 0.7)
+    youtubeCountries.forEach((c) => {
+        if (c.activeEarnings) push(`/youtube-earnings-calculator/${c.slug}/`, "weekly", 0.7);
+        if (c.activeCpm) push(`/youtube-cpm-calculator/${c.slug}/`, "weekly", 0.7);
+        if (c.activeShorts) push(`/youtube-shorts-calculator/${c.slug}/`, "weekly", 0.7);
+    });
+
+    youtubeNiches
+        .filter((n) => n.activeEarnings)
+        .forEach((n) =>
+            push(`/youtube-earnings-calculator/${n.slug}/`, "weekly", 0.7)
         );
 
     youtubeNiches
-        .filter((n) => n.active)
+        .filter((n) => n.activeCpm)
         .forEach((n) =>
-            push(`/youtube-earnings-calculator/${n.slug}/`, "weekly", 0.7)
+            push(`/youtube-cpm-calculator/${n.slug}/`, "weekly", 0.7)
         );
 
     return entries;

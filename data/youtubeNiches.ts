@@ -7,7 +7,8 @@ export interface NicheData {
     advertiserIntent: string;
     revenuePotentialLevel: string;
     strategies: string[];
-    active: boolean;
+    activeEarnings: boolean;
+    activeCpm: boolean;
 }
 
 export const youtubeNiches: NicheData[] = [
@@ -24,7 +25,8 @@ export const youtubeNiches: NicheData[] = [
             "Integrate affiliate links for products you naturally use in your daily life.",
             "Target high-volume search terms since per-view payouts are lower.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "gaming",
@@ -39,7 +41,8 @@ export const youtubeNiches: NicheData[] = [
             "Promote gaming accessories and hardware via affiliate marketing.",
             "Encourage Channel Memberships and Super Chats during live streams to offset low RPMs.",
         ],
-        active: true,
+        activeEarnings: true,
+        activeCpm: true,
     },
     {
         slug: "finance",
@@ -54,7 +57,8 @@ export const youtubeNiches: NicheData[] = [
             "Pitch high-ticket affiliate programs for brokerages or trading software.",
             "Ensure content is highly trustworthy and well-researched to retain a premium audience.",
         ],
-        active: true,
+        activeEarnings: true,
+        activeCpm: false,
     },
     {
         slug: "tech",
@@ -69,7 +73,8 @@ export const youtubeNiches: NicheData[] = [
             "Review high-ticket professional software for lucrative B2B ad placements.",
             "Build relationships with brands for direct sponsorship deals.",
         ],
-        active: true,
+        activeEarnings: true,
+        activeCpm: false,
     },
     {
         slug: "education",
@@ -84,7 +89,8 @@ export const youtubeNiches: NicheData[] = [
             "Sell your own digital courses or study guides.",
             "Optimize video metadata for 'How to' search queries.",
         ],
-        active: true,
+        activeEarnings: true,
+        activeCpm: false,
     },
     {
         slug: "lifestyle",
@@ -99,7 +105,8 @@ export const youtubeNiches: NicheData[] = [
             "Use YouTube Shopping features to sell merchandise directly.",
             "Curate detailed 'My Setup' or 'Get Ready With Me' videos packed with affiliate links.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "pranks",
@@ -114,7 +121,8 @@ export const youtubeNiches: NicheData[] = [
             "Avoid edgy content that risks demonetization or limited ad suitability.",
             "Funnel viewers to Patreon or sell branded merchandise.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "health",
@@ -129,7 +137,8 @@ export const youtubeNiches: NicheData[] = [
             "Promote high-margin health supplements via affiliate links.",
             "Post consistent transformation or workout-along videos to build loyal subscribers.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "business",
@@ -144,7 +153,8 @@ export const youtubeNiches: NicheData[] = [
             "Target search-driven content like 'How to start an online business'.",
             "Pitch premium consulting or coaching offers.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "crypto",
@@ -159,7 +169,8 @@ export const youtubeNiches: NicheData[] = [
             "Focus on educational breakdowns of blockchain projects.",
             "Build trust through transparent analysis and risk disclosure.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "real-estate",
@@ -174,7 +185,8 @@ export const youtubeNiches: NicheData[] = [
             "Partner with real estate brokerages for sponsorships.",
             "Create localized property market analysis content.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "insurance",
@@ -189,7 +201,8 @@ export const youtubeNiches: NicheData[] = [
             "Use high-converting lead generation landing pages.",
             "Focus on long-form educational breakdowns.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "digital-marketing",
@@ -204,7 +217,8 @@ export const youtubeNiches: NicheData[] = [
             "Create tutorial-based evergreen SEO content.",
             "Offer consulting or digital products.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "software-tutorials",
@@ -219,7 +233,8 @@ export const youtubeNiches: NicheData[] = [
             "Partner with SaaS brands for sponsorship.",
             "Promote lifetime deal platforms.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "automotive",
@@ -234,7 +249,8 @@ export const youtubeNiches: NicheData[] = [
             "Partner with auto brands for sponsorship deals.",
             "Promote automotive affiliate programs.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "food",
@@ -249,7 +265,8 @@ export const youtubeNiches: NicheData[] = [
             "Create searchable recipe content.",
             "Publish consistent short-form recipe videos.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "travel",
@@ -264,7 +281,8 @@ export const youtubeNiches: NicheData[] = [
             "Create seasonal destination guides.",
             "Promote travel gear affiliate programs.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
     {
         slug: "parenting",
@@ -279,7 +297,8 @@ export const youtubeNiches: NicheData[] = [
             "Partner with educational platforms.",
             "Create long-term community engagement content.",
         ],
-        active: false,
+        activeEarnings: false,
+        activeCpm: false,
     },
 
 

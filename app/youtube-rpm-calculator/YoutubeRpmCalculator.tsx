@@ -91,12 +91,14 @@ export default function YoutubeRpmCalculator() {
             <p className="auto-note" style={{ marginTop: '16px' }}>
               💡 Adjust values — results update automatically.
             </p>
-            <button className={`btn-primary ${isLoading ? 'loading' : ''}`} onClick={handleCalculate}>
-              {isLoading ? '⏳ Calculating...' : '⚡ Calculate RPM'}
-            </button>
-            <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
-              {isResetting ? '✓ Reset' : '↺ Reset'}
-            </button>
+            <div className="calc-action-row">
+              <button className={`btn-primary ${isLoading ? 'loading' : ''}`} onClick={handleCalculate}>
+                {isLoading ? '⏳ Calculating...' : '⚡ Calculate RPM'}
+              </button>
+              <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
+                {isResetting ? '✓ Reset' : '↺ Reset'}
+              </button>
+            </div>
             <div style={{ marginTop: '16px' }}>
               <Link href="/youtube-earnings-calculator/" className="cta-mini" style={{ textDecoration: 'none' }}>
                 👉 Calculate how much you’d earn with this RPM →

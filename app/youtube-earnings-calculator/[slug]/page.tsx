@@ -14,8 +14,8 @@ import { fmt } from '../../lib/format';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-    const countryParams = youtubeCountries.filter(c => c.active).map(c => ({ slug: c.slug }));
-    const nicheParams = youtubeNiches.filter(n => n.active).map(n => ({ slug: n.slug }));
+    const countryParams = youtubeCountries.filter(c => c.activeEarnings).map(c => ({ slug: c.slug }));
+    const nicheParams = youtubeNiches.filter(n => n.activeEarnings).map(n => ({ slug: n.slug }));
     return [...countryParams, ...nicheParams];
 }
 

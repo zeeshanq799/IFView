@@ -189,12 +189,14 @@ export default function YoutubeWatchTimeCalculator() {
 
                     <p className="auto-note">💡 Adjust values &mdash; results update automatically.</p>
 
-                    <button className={`btn-primary ${isCalculating ? 'loading' : ''}`} onClick={handleCalculate}>
-                        {isCalculating ? '⏳ Calculating...' : '⚡ Calculate Watch Time'}
-                    </button>
-                    <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
-                        {isResetting ? '✓ Reset' : '↺ Reset'}
-                    </button>
+                    <div className="calc-action-row">
+                        <button className={`btn-primary ${isCalculating ? 'loading' : ''}`} onClick={handleCalculate}>
+                            {isCalculating ? '⏳ Calculating...' : '⚡ Calculate Watch Time'}
+                        </button>
+                        <button className={isResetting ? "btn-ghost text-green-500" : "btn-ghost"} onClick={handleReset}>
+                            {isResetting ? '✓ Reset' : '↺ Reset'}
+                        </button>
+                    </div>
 
                     <div className="insight-box" style={{ marginTop: 20 }}>
                         <div style={{ fontWeight: 600, marginBottom: 8 }}>📊 Progress Analysis</div>
